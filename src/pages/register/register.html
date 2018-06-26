@@ -14,5 +14,45 @@
 
 
 <ion-content padding>
-
+  <form (ngSubmit)="registerForm()">
+    <ion-item>
+      <ion-label floating>
+        <ion-icon left name="person"></ion-icon>
+        Full Name
+      </ion-label>
+      <ion-input type="text" [(ngModel)]="fields.name" name="name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>
+        <ion-icon left name="mail"></ion-icon>
+        E-mail
+      </ion-label>
+      <ion-input type="email" [(ngModel)]="fields.email" name="email"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>
+        <ion-icon left name="at"></ion-icon>
+        Username
+      </ion-label>
+      <ion-input type="text" [(ngModel)]="fields.username" name="username"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>
+        <ion-icon left name="lock"></ion-icon>
+        Password
+      </ion-label>
+      <ion-input type="password" [(ngModel)]="fields.password" name="password"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>
+        <ion-icon left name="paper"></ion-icon>
+        Biography
+      </ion-label>
+      <ion-textarea type="text" [(ngModel)]="fields.biography" name="biography"></ion-textarea>
+    </ion-item>
+    <br/>
+    <button ion-button round full type="submit" style="font-size: 20px;">
+      Register
+    </button>
+  </form>
 </ion-content>
