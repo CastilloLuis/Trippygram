@@ -7,6 +7,11 @@
 <ion-header>
 
   <ion-navbar>
+    <ion-buttons left>
+      <button ion-button clear (click)="closeit()">
+        <ion-icon name="close" style="font-size: 25px;"></ion-icon>
+      </button>
+    </ion-buttons>
     <ion-title>login</ion-title>
   </ion-navbar>
 
@@ -17,7 +22,7 @@
   <form id="register-form" (ngSubmit)="loginForm()" padding>
     <ion-item>
       <ion-label floating>
-        <ion-icon name="contact"></ion-icon>          
+        <ion-icon name="contact"></ion-icon>
         Username
       </ion-label>
       <ion-input type="text" [(ngModel)]="user_login.username" name="username"></ion-input>
@@ -32,5 +37,5 @@
     </ion-item>
 
     <button ion-button round color="danger" full type="submit" style="margin-top: 30%;">LOGIN NOW</button>
-  </form>  
+  </form>
 </ion-content>

@@ -13,6 +13,44 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
+  <br/>
+  <ion-list>
+    <ion-item>
+      <ion-label>
+        <ion-icon name="search" right></ion-icon>
+        Search
+      </ion-label>
+      <ion-input type="text" [(ngModel)]="keyword" class="search-input" id="key"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-row>
+        <ion-col col-6>
+          <button ion-button full outline (click)="searchByHT()">
+            <ion-icon name="bookmark"></ion-icon>
+          </button>
+        </ion-col>
+        <ion-col col-6>
+          <button ion-button full outline (click)="searchUser()">
+            <ion-icon name="person"></ion-icon>
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+  </ion-list>
 
+  <ion-title>Search Results</ion-title>
+
+  <ion-list>
+
+    <button ion-item full *ngFor="let r of results" padding>
+      <span *ngIf="!ht">
+        @{{r.username}}
+      </span>
+      <span *ngIf="ht">
+        Post Caption: {{r.post_caption}}
+      </span>
+    </button>
+
+  </ion-list>
 </ion-content>

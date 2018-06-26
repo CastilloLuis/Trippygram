@@ -14,5 +14,12 @@
 
 
 <ion-content padding>
-
+  <ion-title>Activity</ion-title>
+  <hr/>
+  <ion-list>
+    <button ion-item clear
+            *ngFor="let m of mentions">
+      Te han mencionado en el post: {{m.post_caption}}
+    </button>
+  </ion-list>
 </ion-content>

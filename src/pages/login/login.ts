@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, ModalController, ViewController } from 'ionic-angular';
 import { helpers } from '../../global';
 import { HttpProvider } from '../../providers/http/http';
 import { TabsPage } from '../tabs/tabs';
+import { EditProfilePage } from '../edit-profile/edit-profile';
 
 @IonicPage()
 @Component({
@@ -15,7 +16,7 @@ export class LoginPage {
   user_login = {};
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private helpers: helpers, private alertCtrl: AlertController,
-              private http: HttpProvider) {
+              private http: HttpProvider, private modalCtrl: ModalController, private viewCtrl: ViewController) {
   }
 
   ionViewDidLoad() {
@@ -23,7 +24,8 @@ export class LoginPage {
   }
 
   loginForm() {
-    if(!(this.helpers.validateJSON(this.user_login, 2))) {
+    this.navCtrl.setRoot(TabsPage);
+   /* if(!(this.helpers.validateJSON(this.user_login, 2))) {
       (this.alertCtrl.create({
         title: 'Error :(',
         subTitle: 'Please, fill all the fields...',
@@ -42,7 +44,12 @@ export class LoginPage {
             })).present()
           }
         });
-    }
+    }*/
   }
+
+  closeit() {
+    this.viewCtrl.dismiss();
+  }
+
 
 }

@@ -13,6 +13,60 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
+  <div padding>
+    <ion-row>
+      <ion-col col-4>
+        <img src="https://cdn3.iconfinder.com/data/icons/internet-and-web-4/78/internt_web_technology-13-512.png" style="width: 80%">
+      </ion-col>
+      <ion-col col-8>
+        <ion-row text-center>
+          <ion-col col-4>
+            <span style="font-weight: bold;">33</span>
+            <br> posts
+          </ion-col>
+          <ion-col col-4>
+            <span style="font-weight: bold;">1050</span>
+            followers
+          </ion-col>
+          <ion-col col-4>
+            <span style="font-weight: bold;">1010</span>
+            following
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <button ion-button color="light" outline style="width: 100%; color: black"
+                  (click)="editProfile()">
+                    Edit your profile
+          </button>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </div>
+
+  <div class="user-info" style="margin-top: 2%;" padding>
+    <span style="font-weight: bold;">Luis Castillo</span>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi quos nemo hic expedita veniam vel, enim fugiat explicabo
+      libero doloremque ratione
+    </p>
+  </div>
+
+  <div no-padding>
+    <ion-segment [(ngModel)]="pet">
+      <ion-segment-button value="userPosts">
+        <ion-icon name="apps"></ion-icon>
+      </ion-segment-button>
+      <ion-segment-button value="userPostsList">
+        <ion-icon name="list"></ion-icon>
+      </ion-segment-button>
+      <ion-segment-button value="taggedPosts">
+        <ion-icon name="contacts"></ion-icon>
+      </ion-segment-button>
+      <ion-segment-button value="likes">
+        <ion-icon name="heart"></ion-icon>
+      </ion-segment-button>
+    </ion-segment>
+  </div>
 
 </ion-content>

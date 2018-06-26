@@ -52,4 +52,8 @@ export class RegisterPage {
     }
   }
 
+  closeit() {
+    this.viewCtrl.dismiss();
+  }
+
 }
