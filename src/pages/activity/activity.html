@@ -17,9 +17,18 @@
   <ion-title>Activity</ion-title>
   <hr/>
   <ion-list>
+    <button ion-item
+      *ngFor="let m of mentions">
+      <ion-avatar item-start>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Antu_system-switch-user.svg/2000px-Antu_system-switch-user.svg.png">
+      </ion-avatar>
+      <p>You was mentioned in: {{m.post_caption}}</p>
+    </button>
+  </ion-list>  
+  <!--<ion-list>
     <button ion-item clear
             *ngFor="let m of mentions">
       Te han mencionado en el post: {{m.post_caption}}
     </button>
-  </ion-list>
+  </ion-list>-->
 </ion-content>
