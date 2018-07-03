@@ -19,10 +19,10 @@
   <ion-list>
     <button ion-item
       *ngFor="let m of mentions">
-      <ion-avatar item-start>
+      <p><span style="font-weight: bold;">{{m.username}}</span> tagged you in: {{m.post_caption}}</p>
+      <ion-avatar item-end>
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Antu_system-switch-user.svg/2000px-Antu_system-switch-user.svg.png">
-      </ion-avatar>
-      <p>You was mentioned in: {{m.post_caption}}</p>
+      </ion-avatar>      
     </button>
   </ion-list>  
   <!--<ion-list>

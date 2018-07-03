@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { HttpProvider } from '../../providers/http/http';
 
 /**
  * Generated class for the ActivityPage page.
@@ -15,11 +16,16 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ActivityPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  mentions = [];
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private http: HttpProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ActivityPage');
+    this.http.fetch(null, 'GET', `mentions.php?userid=${1}`)
+      .subscribe((res) => res.data.map((r) => this.mentions.push(r)));
+      console.log(this.mentions)
   }
 
 }
