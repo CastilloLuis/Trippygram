@@ -24,8 +24,8 @@ export class LoginPage {
   }
 
   loginForm() {
-    this.navCtrl.setRoot(TabsPage);
-   /* if(!(this.helpers.validateJSON(this.user_login, 2))) {
+    //this.navCtrl.setRoot(TabsPage);
+   if(!(this.helpers.validateJSON(this.user_login, 2))) {
       (this.alertCtrl.create({
         title: 'Error :(',
         subTitle: 'Please, fill all the fields...',
@@ -41,10 +41,10 @@ export class LoginPage {
               title: 'Error :(',
               subTitle: res.message,
               buttons: ['OK']
-            })).present()
+            })).present();
           }
         });
-    }*/
+    }
   }
 
   closeit() {

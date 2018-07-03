@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { HttpProvider } from '../../providers/http/http';
 
 /**
  * Generated class for the SearchPage page.
@@ -15,11 +16,44 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class SearchPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  keyword = '';
+  searchResults = [];
+  ht = false;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private http: HttpProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SearchPage');
+  }
+
+  search(type: any) {
+    let data = {
+      key: '',
+      ht: null
+    };
+    this.searchResults = [];    
+    switch(type) {
+      case 'ht':
+      this.ht = true;
+      console.log('HTTTT');
+        data['key'] = `#${this.keyword}`;
+        data['ht'] = true;
+        console.log(data)
+        this.http.fetch(data, 'POST', 'search.php')
+          .subscribe((res) => res.map((r) => this.searchResults.push(r)));
+          console.log(this.searchResults)
+        break;
+      case 'u':
+        this.ht = false;
+      console.log('UUUUUUU')
+        data['key'] = this.keyword;
+        data['ht'] = false;
+        console.log(data)
+        this.http.fetch(data, 'POST', 'search.php')
+          .subscribe((res) => res.map((r) => this.searchResults.push(r)));
+        break;
+    }
   }
 
 }
