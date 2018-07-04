@@ -14,6 +14,7 @@ import { SearchPage } from '../pages/search/search';
 import { UploadPage } from '../pages/upload/upload';
 import { PostPage } from '../pages/post/post';
 import { ProfilePage } from '../pages/profile/profile';
+import { PostcardComponent } from '../components/postcard/postcard';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -32,7 +33,8 @@ import { HttpProvider } from '../providers/http/http';
     SearchPage,
     UploadPage,
     PostPage,
-    ProfilePage    
+    ProfilePage,
+    PostcardComponent  
   ],
   imports: [
     BrowserModule,

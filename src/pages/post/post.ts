@@ -1,13 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-/**
- * Generated class for the PostPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-post',
@@ -15,7 +8,12 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class PostPage {
 
+  postData: Object = {};
+  local = 'http://localhost:80/trippygram/';
+  
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.postData = navParams.data;
+    console.log(this.postData)
   }
 
   ionViewDidLoad() {

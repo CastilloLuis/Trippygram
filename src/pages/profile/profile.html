@@ -76,7 +76,7 @@
       <div *ngSwitchCase="'userPosts'">
         <ion-row>
           <ion-col col-4 *ngFor="let p of mypost">
-            <img src="{{local}}{{p.post_filename}}" alt="">
+            <img src="{{local}}{{p.post_filename}}" [navPush]="viewPost" [navParams]="p">
           </ion-col>
         </ion-row>
       </div>
@@ -85,60 +85,27 @@
         <ion-list>
           <ion-item *ngFor="let p of mypost">
             <div>
-
-                <ion-card>
-
-                    <ion-item>
-                      <ion-avatar item-start>
-                          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Antu_system-switch-user.svg/2000px-Antu_system-switch-user.svg.png">
-                      </ion-avatar> 
-                      <h2>{{profileData['username']}}</h2>
-                      <p>{{p.created_at}}</p>
-                    </ion-item>
-                  
-                    <img src="{{local}}{{p.post_filename}}" alt="" style="width: 100%">
-                  
-                    <ion-card-content>
-                      <p>{{p.caption}}</p>
-                    </ion-card-content>
-                  
-                    <ion-row>
-                      <ion-col>
-                        <button ion-button icon-start clear small>
-                          <ion-icon name="thumbs-up"></ion-icon>
-                          <div>12 Likes</div>
-                        </button>
-                      </ion-col>
-                      <ion-col>
-                        <button ion-button icon-start clear small>
-                          <ion-icon name="text"></ion-icon>
-                          <div>4 Comments</div>
-                        </button>
-                      </ion-col>
-                      <ion-col center text-center>
-                        <ion-note>
-                          11h ago
-                        </ion-note>
-                      </ion-col>
-                    </ion-row>
-                  
-                  </ion-card>
+              <postcard [postData]="p" [navPush]="viewPost" [navParams]="p">
+              </postcard>
             </div>
-            
           </ion-item>
         </ion-list>
       </div>
 
       <div *ngSwitchCase="'taggedPosts'">
-        <h1>users tagged</h1>
+        <ion-row>
+          <ion-col col-4 *ngFor="let m of tagged_posts">
+            <img src="{{local}}{{m.post_filename}}" alt="" [navPush]="viewPost" [navParams]="m">
+          </ion-col>
+        </ion-row>
       </div>
 
       <div *ngSwitchCase="'likes'">
-          <ion-row>
-              <ion-col col-4 *ngFor="let p of liked_posts">
-                <img src="{{local}}{{p.post_filename}}" alt="">
-              </ion-col>
-            </ion-row>
+        <ion-row>
+          <ion-col col-4 *ngFor="let p of liked_posts">
+            <img src="{{local}}{{p.post_filename}}" alt="" [navPush]="viewPost" [navParams]="p">
+          </ion-col>
+        </ion-row>
       </div>
 
     </div>
