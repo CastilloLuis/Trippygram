@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>profile</ion-title>
+    <ion-title>{{profileData['username']}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -22,15 +22,15 @@
       <ion-col col-8>
         <ion-row text-center>
           <ion-col col-4>
-            <span style="font-weight: bold;">33</span>
+            <span style="font-weight: bold;">{{profileData['postscount']}}</span>
             <br> posts
           </ion-col>
           <ion-col col-4>
-            <span style="font-weight: bold;">1050</span>
+            <span style="font-weight: bold;">{{profileData['followers_count']}}</span>
             followers
           </ion-col>
           <ion-col col-4>
-            <span style="font-weight: bold;">1010</span>
+            <span style="font-weight: bold;">{{profileData['following_count']}}</span>
             following
           </ion-col>
         </ion-row>
@@ -45,10 +45,11 @@
   </div>
 
   <div class="user-info" style="margin-top: 2%;" padding>
-    <span style="font-weight: bold;">Luis Castillo</span>
+    <span style="font-weight: bold;">
+      {{profileData['name']}}
+    </span>
     <p>
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi quos nemo hic expedita veniam vel, enim fugiat explicabo
-      libero doloremque ratione
+      {{profileData['biography']}}
     </p>
   </div>
 
