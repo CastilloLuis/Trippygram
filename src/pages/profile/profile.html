@@ -35,9 +35,8 @@
           </ion-col>
         </ion-row>
         <ion-row>
-          <button ion-button color="light" outline style="width: 100%; color: black"
-                  (click)="editProfile()">
-                    Edit your profile
+          <button ion-button color="light" outline style="width: 100%; color: black" (click)="editProfile()">
+            Edit your profile
           </button>
         </ion-row>
       </ion-col>
@@ -54,20 +53,54 @@
   </div>
 
   <div no-padding>
-    <ion-segment [(ngModel)]="pet">
-      <ion-segment-button value="userPosts">
-        <ion-icon name="apps"></ion-icon>
-      </ion-segment-button>
-      <ion-segment-button value="userPostsList">
-        <ion-icon name="list"></ion-icon>
-      </ion-segment-button>
-      <ion-segment-button value="taggedPosts">
-        <ion-icon name="contacts"></ion-icon>
-      </ion-segment-button>
-      <ion-segment-button value="likes">
-        <ion-icon name="heart"></ion-icon>
-      </ion-segment-button>
-    </ion-segment>
+    <div>
+      <ion-segment [(ngModel)]="posts">
+        <ion-segment-button value="userPosts">
+          <ion-icon name="apps"></ion-icon>
+        </ion-segment-button>
+        <ion-segment-button value="userPostsList">
+          <ion-icon name="list"></ion-icon>
+        </ion-segment-button>
+        <ion-segment-button value="taggedPosts">
+          <ion-icon name="contacts"></ion-icon>
+        </ion-segment-button>
+        <ion-segment-button value="likes">
+          <ion-icon name="heart"></ion-icon>
+        </ion-segment-button>
+      </ion-segment>
+    </div>
+
+    <!--POST DATA-->
+    <div [ngSwitch]="posts">
+
+      <div *ngSwitchCase="'userPosts'">
+        <ion-row>
+          <ion-col col-4 *ngFor="let p of mypost">
+            <img src="{{local}}{{p.post_filename}}" alt="">
+          </ion-col>
+        </ion-row>
+      </div>
+
+      <div *ngSwitchCase="'userPostsList'">
+        <h1>users postes list</h1>
+        <ion-list>
+          <ion-item>
+              <img src="{{local}}{{p.post_filename}}" alt="">
+          </ion-item>
+        </ion-list>
+      </div>
+
+      <div *ngSwitchCase="'taggedPosts'">
+        <h1>users tagged</h1>
+      </div>
+
+      <div *ngSwitchCase="'likes'">
+        <h1>users likes</h1>
+      </div>
+
+    </div>
+
+
   </div>
 
 </ion-content>

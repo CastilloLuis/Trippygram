@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { EditProfilePage } from '../edit-profile/edit-profile';
 import { HttpProvider } from '../../providers/http/http';
+import { DomSanitizer } from '@angular/platform-browser';
+
 
 @IonicPage()
 @Component({
@@ -11,10 +13,12 @@ import { HttpProvider } from '../../providers/http/http';
 export class ProfilePage {
 
   profileData: Object = {};
-  post = [];
+  mypost = [];
   liked_posts = [];
+  local = 'http://localhost:80/trippygram/';
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private modalCtrl: ModalController, private http: HttpProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private modalCtrl: ModalController, private http: HttpProvider,
+              private domsan: DomSanitizer) {
   }
 
   ionViewDidLoad() {
@@ -23,12 +27,14 @@ export class ProfilePage {
       .subscribe((res) => {
         console.log(res)
         if(res.status === 200) {
-          console.log('asdasdasd')
+          console.log(res)
           this.profileData = res.data;
-          console.log(this.profileData)
+          res.posts.map((p) => this.mypost.push(p));
+          res.liked_posts.map((lp) => this.liked_posts.push(lp));
+          console.log(this.mypost);
+          console.log(this.liked_posts)
         }
       });
-      console.log(this.profileData)
   }
 
   editProfile() {
