@@ -15,22 +15,26 @@
   </ion-card-content>
 
   <ion-row>
-    <ion-col>
+    <ion-col col-1>
       <button ion-button icon-start clear small (click)="likePost(postData.post_id)">
-        <ion-icon name="heart" style="color: white; -webkit-text-stroke: 1px black;" id="like-icon"></ion-icon>
-        <div>12 Likes</div>
+        <ion-icon name="heart" style="color: white; -webkit-text-stroke: 1px black;" id="{{postData?.post_id}}" class="hello"></ion-icon>
       </button>
     </ion-col>
-    <ion-col>
+    <ion-col col-3>
+      <button ion-button clear small>
+        12 likes
+      </button>
+    </ion-col>
+    <ion-col center text-center col-3>
+        <ion-note>
+          11h ago
+        </ion-note>
+      </ion-col>    
+    <ion-col col-2>
       <button ion-button icon-start clear small>
         <ion-icon name="text"></ion-icon>
         <div>4 Comments</div>
       </button>
-    </ion-col>
-    <ion-col center text-center>
-      <ion-note>
-        11h ago
-      </ion-note>
     </ion-col>
   </ion-row>
 

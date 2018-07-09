@@ -22,44 +22,39 @@
   <div align="center">
     <img src="https://cdn3.iconfinder.com/data/icons/internet-and-web-4/78/internt_web_technology-13-512.png" style="width: 25%;">
     <br/>
-    <button ion-button clear color="primary">Change avatar</button>
+    <button ion-button clear color="primary" (click)="chooseAvatar()">Change avatar</button>
   </div>
 
-  <form (ngSubmit)="registerForm()">
+  <form [formGroup]="updateForm" (ngSubmit)="submitForm()">
     <ion-item>
-      <ion-label floating>
+      <ion-label>
         <ion-icon left name="person"></ion-icon>
-        Full Name
       </ion-label>
-      <ion-input type="text" [(ngModel)]="fields.name" name="name"></ion-input>
+      <ion-input type="text" id="name" formControlName="name"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label floating>
+      <ion-label>
         <ion-icon left name="mail"></ion-icon>
-        E-mail
       </ion-label>
-      <ion-input type="email" [(ngModel)]="fields.email" name="email"></ion-input>
+      <ion-input type="email" id="email" formControlName="email"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label floating>
+      <ion-label>
         <ion-icon left name="at"></ion-icon>
-        Username
       </ion-label>
-      <ion-input type="text" [(ngModel)]="fields.username" name="username"></ion-input>
+      <ion-input type="text" id="username" formControlName="username"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label floating>
+      <ion-label>
         <ion-icon left name="lock"></ion-icon>
-        Password
       </ion-label>
-      <ion-input type="password" [(ngModel)]="fields.password" name="password"></ion-input>
+      <ion-input type="password" id="password" formControlName="password"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label floating>
+      <ion-label>
         <ion-icon left name="paper"></ion-icon>
-        Biography
       </ion-label>
-      <ion-textarea type="text" [(ngModel)]="fields.biography" name="biography"></ion-textarea>
+      <ion-textarea type="text" id="biography" formControlName="biography"></ion-textarea>
     </ion-item>
     <br/>
     <button ion-button round full type="submit" color="secondary" style="font-size: 20px;">

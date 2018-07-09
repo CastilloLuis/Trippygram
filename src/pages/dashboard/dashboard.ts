@@ -14,10 +14,10 @@ export class DashboardPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private http: HttpProvider) {
   }
 
-  ionViewDidLoad() {
+  ionViewWillEnter() {
     console.log('ionViewDidLoad DashboardPage');
     this.http.fetch(null, 'GET', `home.php?id=${1}`)
       .subscribe((res) => ((res.status === 200) ? res.data.map(p => this.dashboardPosts.push(p)) : false ));
-  }
+  } 
 
 }

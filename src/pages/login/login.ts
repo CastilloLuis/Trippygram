@@ -43,7 +43,15 @@ export class LoginPage {
               buttons: ['OK']
             })).present();
           }
-        });
+        },
+        (err) => {
+          (this.alertCtrl.create({
+            title: 'Error :(',
+            subTitle: JSON.stringify(err),
+            buttons: ['OK']
+          })).present();          
+        }
+      );
     }
   }
 

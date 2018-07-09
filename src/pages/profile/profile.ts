@@ -17,14 +17,15 @@ export class ProfilePage {
   mypost = [];
   liked_posts = [];
   tagged_posts = [];
-  local = 'http://localhost:80/trippygram/';
+  local = 'http://192.168.1.2:80/trippygram/';
   viewPost = PostPage;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private modalCtrl: ModalController, private http: HttpProvider,
               private domsan: DomSanitizer) {
   }
 
-  ionViewDidLoad() {
+  ionViewDidEnter() {
+    this.liked_posts = [];
     console.log('ionViewDidLoad ProfilePage');
     this.http.fetch(null, 'GET', `profile.php?user_id=${1}`)
       .subscribe((res) => {
@@ -45,7 +46,7 @@ export class ProfilePage {
   }
 
   editProfile() {
-    let modal = this.modalCtrl.create(EditProfilePage);
+    let modal = this.modalCtrl.create(EditProfilePage, {data: this.profileData});
     modal.present();
   }
 

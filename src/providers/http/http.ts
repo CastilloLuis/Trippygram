@@ -11,7 +11,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class HttpProvider {
   
-  svhost: string = 'http://localhost:80/trippygram/api/api';
+  svhost: string = 'http://192.168.1.2:80/trippygram/api/api';
 
   constructor(public http: HttpClient) {
     console.log('Hello HttpProvider Provider');
