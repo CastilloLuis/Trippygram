@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { ActionSheetController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
+import { HttpProvider } from '../../providers/http/http';
 
 @IonicPage()
 @Component({
@@ -12,7 +13,8 @@ import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-nati
   providers: [
     Camera,
     FileTransfer,
-    FileTransferObject
+    FileTransferObject,
+    HttpProvider
   ]
 })
 export class EditProfilePage {
@@ -22,7 +24,8 @@ export class EditProfilePage {
   avatarImage: string = '';
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController,
-              private camera: Camera, private cameraMenu: ActionSheetController, private transfer: FileTransfer,) {
+              private camera: Camera, private cameraMenu: ActionSheetController, private transfer: FileTransfer,
+              private http: HttpProvider) {
     console.log(navParams.get('data'));
     this.profileData = navParams.get('data');
     this.updateForm = new FormGroup({
@@ -41,8 +44,13 @@ export class EditProfilePage {
   submitForm() {
     console.log('asdasd');
     console.log(this.updateForm.value)
-    if(this.profileData['path'].length === 'avatar.jpg') {
-      
+    if(this.avatarImage.length === 0) {
+      this.http.fetch(this.profileData, 'POST', 'updateUser.php')
+        .subscribe((res) => {
+          console.log(res);
+        })
+    } else {
+      this.updateForm(this.avatarImage);
     }
   }
 
@@ -77,7 +85,7 @@ export class EditProfilePage {
        mimeType: "image/jpeg",
        headers: {}
     }
-    fileTransfer.upload(avatar, 'http://192.168.1.4:80/trippygram/api/api/updateFile.php', options)
+    fileTransfer.upload(avatar, 'http://192.168.1.105:80/trippygram/api/api/updateFile.php', options)
      .then((data) => {
        alert('TODO OKEY' + JSON.stringify(data));
      }, (err) => {
