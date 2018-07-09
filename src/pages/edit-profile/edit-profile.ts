@@ -3,13 +3,16 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { ActionSheetController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 
 @IonicPage()
 @Component({
   selector: 'page-edit-profile',
   templateUrl: 'edit-profile.html',
   providers: [
-    Camera
+    Camera,
+    FileTransfer,
+    FileTransferObject
   ]
 })
 export class EditProfilePage {
@@ -19,7 +22,7 @@ export class EditProfilePage {
   avatarImage: string = '';
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController,
-              private camera: Camera, private cameraMenu: ActionSheetController) {
+              private camera: Camera, private cameraMenu: ActionSheetController, private transfer: FileTransfer,) {
     console.log(navParams.get('data'));
     this.profileData = navParams.get('data');
     this.updateForm = new FormGroup({
@@ -38,8 +41,10 @@ export class EditProfilePage {
   submitForm() {
     console.log('asdasd');
     console.log(this.updateForm.value)
+    if(this.profileData['path'].length === 'avatar.jpg') {
+      
+    }
   }
-
 
   chooseAvatar() {
     const menu = this.cameraMenu.create({
@@ -55,12 +60,29 @@ export class EditProfilePage {
           text: 'Select picture',
           handler: () => {
           this.cameraOp(0);
-          console.log('selecting picture')
+          console.log('selecting picture');
           }          
         }
       ]
     });
     menu.present();
+  }
+
+  upload(avatar: any) {
+    const fileTransfer: FileTransferObject = this.transfer.create();
+    let options: FileUploadOptions = {
+       fileKey: 'file',
+       fileName: this.generateAvatarName(this.updateForm.value.username),
+       chunkedMode: false,
+       mimeType: "image/jpeg",
+       headers: {}
+    }
+    fileTransfer.upload(avatar, 'http://192.168.1.4:80/trippygram/api/api/updateFile.php', options)
+     .then((data) => {
+       alert('TODO OKEY' + JSON.stringify(data));
+     }, (err) => {
+       alert(err)
+     })
   }
 
   cameraOp(sourceType:number) {
@@ -77,12 +99,16 @@ export class EditProfilePage {
       let base64Image = 'data:image/jpeg;base64,' + imageData;
       this.avatarImage = base64Image;
       alert(this.avatarImage);
+      this.upload(this.avatarImage);
     }, (err) => {
       // Handle error
     });
   }
 
-
+  generateAvatarName(username: string) {
+    let randomNum = Math.random() * (153462458942 - 1253) + 1732;
+    return `${username}_ava_${randomNum}.jpg`;
+  }
 
   closeit() {
     this.viewCtrl.dismiss();
