@@ -19,9 +19,10 @@ import { HttpProvider } from '../../providers/http/http';
 })
 export class EditProfilePage {
 
-  profileData: Object = {};
+  profileData = <any>{};
   updateForm; 
   avatarImage: string = '';
+  path: string = '';
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController,
               private camera: Camera, private cameraMenu: ActionSheetController, private transfer: FileTransfer,
@@ -43,14 +44,21 @@ export class EditProfilePage {
 
   submitForm() {
     console.log('asdasd');
-    console.log(this.updateForm.value)
+    this.updateForm.value['userid'] = 1;
     if(this.avatarImage.length === 0) {
-      this.http.fetch(this.profileData, 'POST', 'updateUser.php')
+      this.updateForm.value['haveAvatar'] = false;
+      alert('okaa');
+      this.http.fetch(this.updateForm.value, 'POST', 'updateUser.php')
         .subscribe((res) => {
-          console.log(res);
-        })
+          alert('oka')
+          console.log('asdas'+(JSON.stringify(res)))
+        },
+        (err) => console.log(JSON.stringify(err)));
+        //alert((this.updateForm.value))
     } else {
-      this.updateForm(this.avatarImage);
+      this.updateForm.value['haveAvatar'] = true;
+      this.upload(this.avatarImage);
+      //alert((this.updateForm.value))
     }
   }
 
@@ -83,14 +91,22 @@ export class EditProfilePage {
        fileName: this.generateAvatarName(this.updateForm.value.username),
        chunkedMode: false,
        mimeType: "image/jpeg",
-       headers: {}
+       headers: {},
+       params: {data: this.updateForm.value}
     }
-    fileTransfer.upload(avatar, 'http://192.168.1.105:80/trippygram/api/api/updateFile.php', options)
+    fileTransfer.upload(avatar, 'http://192.168.1.105:80/trippygram/api/api/uploadFile.php', options)
      .then((data) => {
-       alert('TODO OKEY' + JSON.stringify(data));
-     }, (err) => {
-       alert(err)
-     })
+       let path = (JSON.parse(data.response)).path;
+       this.path = path;
+       this.updateForm.value.path = this.path;
+       alert(JSON.stringify(this.updateForm.value))
+       this.http.fetch(this.updateForm.value, 'POST', 'updateUser.php')
+        .subscribe((res) => {
+          alert('asdasdasdas'+JSON.stringify(res))
+        },
+        (err) => alert('xdxd'+JSON.stringify(err)))
+    })
+    .catch(err => alert('xdxd22'+JSON.stringify(err)))
   }
 
   cameraOp(sourceType:number) {
@@ -106,10 +122,11 @@ export class EditProfilePage {
     this.camera.getPicture(options).then((imageData) => {
       let base64Image = 'data:image/jpeg;base64,' + imageData;
       this.avatarImage = base64Image;
-      alert(this.avatarImage);
-      this.upload(this.avatarImage);
+      // alert(this.avatarImage);
+      // this.upload(this.avatarImage);
     }, (err) => {
       // Handle error
+      alert(JSON.stringify(err))
     });
   }
 
