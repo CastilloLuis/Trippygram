@@ -35,12 +35,14 @@ export class ProfilePage {
 
     this.liked_posts = [];
     console.log('ionViewDidLoad ProfilePage');
-    this.http.fetch(null, 'GET', `profile.php?user_id=${this.loggeduser.username}`)
+    this.http.fetch(null, 'GET', `profile.php?user_id=${this.loggeduser.userid}`)
       .subscribe((res) => {
         console.log(res)
         if(res.status === 200) {
           console.log(res)
           this.profileData = res.data;
+          this.profileData['myavatar'] = (res.data.avatar).split('trippygram/')[1];          
+          delete this.profileData['avatar']
           res.posts.map((p) => {
             p.username = res.data.username;
             this.mypost.push(p)
