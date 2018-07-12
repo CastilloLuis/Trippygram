@@ -12,7 +12,7 @@ import { NativeStorage } from '@ionic-native/native-storage';
 export class DashboardPage {
 
   dashboardPosts = [];
-  loggeduser = <any>{};
+  loggeduser: Object = <any>{};
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private http: HttpProvider,
               private nativeSto: NativeStorage) {
@@ -21,19 +21,25 @@ export class DashboardPage {
   ionViewWillEnter() {
     this.nativeSto.getItem('loggeduser')
       .then(
-        (data) => this.loggeduser = data,
+        (data) => {
+          this.loggeduser = data
+          this.showDashboard();
+        },
         (err) => alert('error: ' + err)
       ).catch((err) => alert('error2: ' + err));
-
+      alert(JSON.stringify(this.loggeduser))
     console.log('ionViewDidLoad DashboardPage');
-    this.http.fetch(null, 'GET', `home.php?id=${this.loggeduser.userid}`)
+  }
+  
+  showDashboard() {
+    this.http.fetch(null, 'GET', `home.php?id=${this.loggeduser['userid']}`)
       .subscribe(
-        (res) => ((res.status === 200) ? 
-                  res.data.map(p => {
-                    this.dashboardPosts.push(p);
-                    this.dashboardPosts.push(this.loggeduser)
-                  }) :
-                  false ));
-  } 
+        (res) =>  {
+          if(res.status === 200) {
+            res.data.map(p => this.dashboardPosts.push(p));
+          }
+        }
+      );
+  }
 
 }

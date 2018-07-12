@@ -18,9 +18,9 @@ export class ProfilePage {
   mypost = [];
   liked_posts = [];
   tagged_posts = [];
-  local = 'http://192.168.1.5:80/trippygram/';
+  local = 'http://192.168.1.4:80/trippygram/';
   viewPost = PostPage;
-  loggeduser = <any>{};
+  loggeduser: Object = <any>{};
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private modalCtrl: ModalController, private http: HttpProvider,
               private domsan: DomSanitizer, private nativeSto: NativeStorage) {
@@ -35,7 +35,7 @@ export class ProfilePage {
 
     this.liked_posts = [];
     console.log('ionViewDidLoad ProfilePage');
-    this.http.fetch(null, 'GET', `profile.php?user_id=${this.loggeduser.userid}`)
+    this.http.fetch(null, 'GET', `profile.php?user_id=${this.loggeduser['userid']}`)
       .subscribe((res) => {
         console.log(res)
         if(res.status === 200) {
@@ -59,7 +59,7 @@ export class ProfilePage {
   }
 
   getTaggedPosts() {
-    this.http.fetch(null, 'GET', `mentions.php?userid=${this.loggeduser.username}`)
+    this.http.fetch(null, 'GET', `mentions.php?userid=${this.loggeduser['username']}`)
       .subscribe((res) => ((res.status === 200) ? res.data.map(r => this.tagged_posts.push(r)) : false));
   }
 

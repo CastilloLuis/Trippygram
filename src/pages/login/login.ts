@@ -37,7 +37,7 @@ export class LoginPage {
       this.http.fetch(this.user_login, 'POST', 'login.php')
         .subscribe((res) => {
           if(res.status === 200) {
-            alert(JSON.stringify(res))
+            // alert(JSON.stringify(res))
             this.nativeSto.setItem('loggeduser', {username: res.username, userid: res.user_id});
             this.navCtrl.setRoot(TabsPage);
           } else {

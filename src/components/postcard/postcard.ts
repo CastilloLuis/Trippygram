@@ -8,7 +8,8 @@ import { HttpProvider } from '../../providers/http/http';
 export class PostcardComponent {
 
   @Input() postData: Object = {};
-  local = 'http://192.168.1.5:80/trippygram/'
+  @Input() loggedUser: Object = {};
+  local = 'http://192.168.1.4:80/trippygram/'
   text: string;
 
   constructor(private http: HttpProvider, private ref: ElementRef) {
@@ -19,7 +20,7 @@ export class PostcardComponent {
   ngAfterViewInit() {
     let data = {
       post_id: this.postData['post_id'],
-      user_id: this.postData['loggeduser']['userid']
+      user_id: this.loggedUser['userid']
     }
     console.warn(data)
     console.log((this.ref.nativeElement.querySelectorAll('.hello') as HTMLButtonElement));
