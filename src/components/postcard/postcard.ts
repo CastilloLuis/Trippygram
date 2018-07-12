@@ -38,7 +38,7 @@ export class PostcardComponent {
   likePost(postID: any) {
     let data = {
       post_id: postID,
-      user_id: 1
+      user_id: this.loggedUser['userid']
     }
     console.log(postID);
     this.http.fetch(null, 'GET', `like.php?user_id=${data.user_id}&post_id=${data.post_id}`)

@@ -5,6 +5,7 @@ import { HttpProvider } from '../../providers/http/http';
 import { DomSanitizer } from '@angular/platform-browser';
 import { PostPage } from '../post/post';
 import { NativeStorage } from '@ionic-native/native-storage';
+import { HomePage } from '../home/home';
 
 @IonicPage()
 @Component({
@@ -21,12 +22,17 @@ export class ProfilePage {
   local = 'http://192.168.1.4:80/trippygram/';
   viewPost = PostPage;
   loggeduser: Object = <any>{};
+  posts = '';
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private modalCtrl: ModalController, private http: HttpProvider,
               private domsan: DomSanitizer, private nativeSto: NativeStorage) {
+                this.posts = "userPosts";
   }
 
-  ionViewDidEnter() {
+  ionViewWillEnter() {
+    this.mypost = [];
+    this.liked_posts = [];
+    this.tagged_posts = [];
     this.nativeSto.getItem('loggeduser')
       .then(
         (data) => this.loggeduser = data,
@@ -34,7 +40,6 @@ export class ProfilePage {
       ).catch((err) => alert('error2: ' + err));
 
     this.liked_posts = [];
-    console.log('ionViewDidLoad ProfilePage');
     this.http.fetch(null, 'GET', `profile.php?user_id=${this.loggeduser['userid']}`)
       .subscribe((res) => {
         console.log(res)
@@ -59,13 +64,23 @@ export class ProfilePage {
   }
 
   getTaggedPosts() {
-    this.http.fetch(null, 'GET', `mentions.php?userid=${this.loggeduser['username']}`)
+    this.http.fetch(null, 'GET', `mentions.php?userid=${this.loggeduser['userid']}`)
       .subscribe((res) => ((res.status === 200) ? res.data.map(r => this.tagged_posts.push(r)) : false));
   }
 
   editProfile() {
     let modal = this.modalCtrl.create(EditProfilePage, {data: this.profileData});
     modal.present();
+  }
+
+  logOut() {
+    this.nativeSto.clear()
+      .then(() => {
+        alert('Logged out');
+        // this.navCtrl.setRoot(HomePage);
+        this.navCtrl.parent.parent.setRoot(HomePage)
+      })
+      .catch(() => alert('Error while logout action...'))
   }
 
 }

@@ -19,6 +19,7 @@ export class DashboardPage {
   }
 
   ionViewWillEnter() {
+    this.dashboardPosts = [];
     this.nativeSto.getItem('loggeduser')
       .then(
         (data) => {
@@ -27,7 +28,7 @@ export class DashboardPage {
         },
         (err) => alert('error: ' + err)
       ).catch((err) => alert('error2: ' + err));
-      alert(JSON.stringify(this.loggeduser))
+      // alert(JSON.stringify(this.loggeduser))
     console.log('ionViewDidLoad DashboardPage');
   }
   

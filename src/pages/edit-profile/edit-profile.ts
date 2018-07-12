@@ -26,6 +26,8 @@ export class EditProfilePage {
   avatarImage: string = '';
   path: string = '';
   loggeduser = <any>{};
+  local = 'http://192.168.1.4:80/trippygram/';
+  currentavatar: string = '';
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController,
               private camera: Camera, private cameraMenu: ActionSheetController, private transfer: FileTransfer,
@@ -54,16 +56,17 @@ export class EditProfilePage {
 
   submitForm() {
     console.log('asdasd');
-    this.updateForm.value['userid'] = this.loggeduser.userid;
+    this.updateForm.value['userid'] = this.loggeduser['userid'];
+    alert(this.loggeduser['userid']);
     if(this.avatarImage.length === 0) {
       this.updateForm.value['haveAvatar'] = false;
       alert('okaa');
       this.http.fetch(this.updateForm.value, 'POST', 'updateUser.php')
         .subscribe((res) => {
           alert('oka')
-          console.log('asdas'+(JSON.stringify(res)))
+          console.log('asdas'+(alert(JSON.stringify(res))))
         },
-        (err) => console.log(JSON.stringify(err)));
+        (err) => console.log(alert(JSON.stringify(err))));
         //alert((this.updateForm.value))
     } else {
       this.updateForm.value['haveAvatar'] = true;
@@ -98,7 +101,7 @@ export class EditProfilePage {
        headers: {},
        params: {data: this.updateForm.value}
     }
-    fileTransfer.upload(avatar, 'http://192.168.1.5:80/trippygram/api/api/uploadFile.php', options)
+    fileTransfer.upload(avatar, 'http://192.168.1.4:80/trippygram/api/api/uploadFile.php', options)
      .then((data) => {
        let path = (JSON.parse(data.response)).path;
        this.path = path;
