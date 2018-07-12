@@ -5,6 +5,7 @@ import { ActionSheetController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { HttpProvider } from '../../providers/http/http';
+import { NativeStorage } from '@ionic-native/native-storage';
 
 @IonicPage()
 @Component({
@@ -14,7 +15,8 @@ import { HttpProvider } from '../../providers/http/http';
     Camera,
     FileTransfer,
     FileTransferObject,
-    HttpProvider
+    HttpProvider,
+    NativeStorage
   ]
 })
 export class EditProfilePage {
@@ -23,11 +25,19 @@ export class EditProfilePage {
   updateForm; 
   avatarImage: string = '';
   path: string = '';
+  loggeduser = <any>{};
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController,
               private camera: Camera, private cameraMenu: ActionSheetController, private transfer: FileTransfer,
-              private http: HttpProvider) {
+              private http: HttpProvider, private nativeSto: NativeStorage) {
     console.log(navParams.get('data'));
+
+    this.nativeSto.getItem('loggeduser')
+      .then(
+        (data) => this.loggeduser = data,
+        (err) => alert('error: ' + err)
+      ).catch((err) => alert('error2: ' + err));  
+
     this.profileData = navParams.get('data');
     this.updateForm = new FormGroup({
       name: new FormControl(this.profileData['name'], [Validators.required]),
@@ -44,7 +54,7 @@ export class EditProfilePage {
 
   submitForm() {
     console.log('asdasd');
-    this.updateForm.value['userid'] = 1;
+    this.updateForm.value['userid'] = this.loggeduser.userid;
     if(this.avatarImage.length === 0) {
       this.updateForm.value['haveAvatar'] = false;
       alert('okaa');
@@ -68,16 +78,10 @@ export class EditProfilePage {
       buttons: [
         {
           text: 'Take picture',
-          handler: () => {
-          this.cameraOp(1);
-          console.log('taking picture')
-          }
+          handler: () => this.cameraOp(1)
         },{
           text: 'Select picture',
-          handler: () => {
-          this.cameraOp(0);
-          console.log('selecting picture');
-          }          
+          handler: () => this.cameraOp(0)         
         }
       ]
     });
@@ -94,7 +98,7 @@ export class EditProfilePage {
        headers: {},
        params: {data: this.updateForm.value}
     }
-    fileTransfer.upload(avatar, 'http://192.168.1.105:80/trippygram/api/api/uploadFile.php', options)
+    fileTransfer.upload(avatar, 'http://192.168.1.5:80/trippygram/api/api/uploadFile.php', options)
      .then((data) => {
        let path = (JSON.parse(data.response)).path;
        this.path = path;

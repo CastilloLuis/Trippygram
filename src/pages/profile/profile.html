@@ -85,7 +85,10 @@
         <ion-list>
           <ion-item *ngFor="let p of mypost">
             <div>
-              <postcard [postData]="p" [navPush]="viewPost" [navParams]="p">
+              <postcard 
+                [postData]="p" 
+                [navPush]="viewPost" 
+                [navParams]="p">
               </postcard>
             </div>
           </ion-item>

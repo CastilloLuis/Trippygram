@@ -9,7 +9,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 export class PostPage {
 
   postData: Object = {};
-  local = 'http://localhost:80/trippygram/';
+  local = 'http://192.168.1.5:80/trippygram/';
   
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.postData = navParams.data;
