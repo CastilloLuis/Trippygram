@@ -20,6 +20,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { HttpProvider } from '../providers/http/http';
 import { ReactiveFormsModule } from "@angular/forms";
+import { CameraProvider } from '../providers/camera/camera';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { ReactiveFormsModule } from "@angular/forms";
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     HttpProvider,
-    HttpClientModule
+    HttpClientModule,
+    CameraProvider
   ]
 })
 export class AppModule {}

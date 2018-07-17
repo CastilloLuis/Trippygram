@@ -6,6 +6,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { HttpProvider } from '../../providers/http/http';
 import { NativeStorage } from '@ionic-native/native-storage';
+import { CameraProvider } from '../../providers/camera/camera';
 
 @IonicPage()
 @Component({
@@ -16,7 +17,8 @@ import { NativeStorage } from '@ionic-native/native-storage';
     FileTransfer,
     FileTransferObject,
     HttpProvider,
-    NativeStorage
+    NativeStorage,
+    CameraProvider
   ]
 })
 export class EditProfilePage {
@@ -26,12 +28,12 @@ export class EditProfilePage {
   avatarImage: string = '';
   path: string = '';
   loggeduser = <any>{};
-  local = 'http://192.168.1.4:80/trippygram/';
+  local = 'http://192.168.1.3:80/trippygram/';
   currentavatar: string = '';
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController,
               private camera: Camera, private cameraMenu: ActionSheetController, private transfer: FileTransfer,
-              private http: HttpProvider, private nativeSto: NativeStorage) {
+              private http: HttpProvider, private nativeSto: NativeStorage, private mediaHandler: CameraProvider) {
     console.log(navParams.get('data'));
 
     this.nativeSto.getItem('loggeduser')
@@ -58,7 +60,8 @@ export class EditProfilePage {
     console.log('asdasd');
     this.updateForm.value['userid'] = this.loggeduser['userid'];
     alert(this.loggeduser['userid']);
-    if(this.avatarImage.length === 0) {
+    // alert(this.mediaHandler.getBase64())
+    if((this.mediaHandler.getBase64()).length === 0) {
       this.updateForm.value['haveAvatar'] = false;
       alert('okaa');
       this.http.fetch(this.updateForm.value, 'POST', 'updateUser.php')
@@ -70,12 +73,17 @@ export class EditProfilePage {
         //alert((this.updateForm.value))
     } else {
       this.updateForm.value['haveAvatar'] = true;
-      this.upload(this.avatarImage);
+      //this.upload(this.avatarImage);
+      this.mediaHandler.upload(this.updateForm);
       //alert((this.updateForm.value))
     }
   }
 
   chooseAvatar() {
+    this.mediaHandler.chooseAvatar();
+  }
+
+ /* chooseAvatar() {
     const menu = this.cameraMenu.create({
       title: 'Select your option wey',
       buttons: [
@@ -101,7 +109,7 @@ export class EditProfilePage {
        headers: {},
        params: {data: this.updateForm.value}
     }
-    fileTransfer.upload(avatar, 'http://192.168.1.4:80/trippygram/api/api/uploadFile.php', options)
+    fileTransfer.upload(avatar, 'http://192.168.43.246:80/trippygram/api/api/uploadFile.php', options)
      .then((data) => {
        let path = (JSON.parse(data.response)).path;
        this.path = path;
@@ -140,7 +148,7 @@ export class EditProfilePage {
   generateAvatarName(username: string) {
     let randomNum = Math.random() * (153462458942 - 1253) + 1732;
     return `${username}_ava_${randomNum}.jpg`;
-  }
+  }*/
 
   closeit() {
     this.viewCtrl.dismiss();

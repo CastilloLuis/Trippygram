@@ -11,7 +11,7 @@ export class PostPage {
 
   postData: Object = {};
   loggeduser: Object = <any>{};
-  local = 'http://192.168.1.4:80/trippygram/';
+  local = 'http://192.168.1.3:80/trippygram/';
   
   constructor(public navCtrl: NavController, public navParams: NavParams, private nativeSto: NativeStorage) {
     this.postData = navParams.data;

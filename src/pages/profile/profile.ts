@@ -19,7 +19,7 @@ export class ProfilePage {
   mypost = [];
   liked_posts = [];
   tagged_posts = [];
-  local = 'http://192.168.1.4:80/trippygram/';
+  local = 'http://192.168.1.3:80/trippygram/';
   viewPost = PostPage;
   loggeduser: Object = <any>{};
   posts = '';
@@ -48,6 +48,7 @@ export class ProfilePage {
           this.profileData = res.data;
           this.profileData['myavatar'] = (res.data.avatar).split('trippygram/')[1];          
           delete this.profileData['avatar']
+          alert(this.profileData['myavatar'])
           res.posts.map((p) => {
             p.username = res.data.username;
             this.mypost.push(p)

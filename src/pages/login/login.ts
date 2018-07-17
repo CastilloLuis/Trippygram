@@ -34,6 +34,7 @@ export class LoginPage {
         buttons: ['OK']
       })).present();
     } else {
+      alert('fino')
       this.http.fetch(this.user_login, 'POST', 'login.php')
         .subscribe((res) => {
           if(res.status === 200) {
