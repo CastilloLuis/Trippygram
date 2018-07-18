@@ -44,11 +44,11 @@ export class CameraProvider {
     menu.present();
   }
 
-  upload(form: any) {
+  upload(form: any, isPost: boolean) {
     const fileTransfer: FileTransferObject = this.transfer.create();
     let options: FileUploadOptions = {
        fileKey: 'file',
-       fileName: this.generateAvatarName(form.value.username),
+       fileName: this.generateName(form.value.username, isPost),
        chunkedMode: false,
        mimeType: "image/jpeg",
        headers: {},
@@ -96,9 +96,9 @@ export class CameraProvider {
     return this.avatarImage;
   }
 
-  generateAvatarName(username: string) {
+  generateName(username: string, isPost: boolean) {
     let randomNum = Math.random() * (153462458942 - 1253) + 1732;
-    return `${username}_ava_${randomNum}.jpg`;
+    return ((isPost) ? `${username}_post_${randomNum}.jpg` : `${username}_avatar_${randomNum}.jpg`);
   }  
 
 }

@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { PostcardComponent } from './postcard/postcard';
-import { MediaComponent } from './media/media';
 @NgModule({
-	declarations: [PostcardComponent,
-    MediaComponent],
+	declarations: [PostcardComponent
+    ],
 	imports: [],
-	exports: [PostcardComponent,
-    MediaComponent]
+	exports: [PostcardComponent
+    ]
 })
 export class ComponentsModule {}

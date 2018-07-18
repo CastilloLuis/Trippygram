@@ -74,7 +74,7 @@ export class EditProfilePage {
     } else {
       this.updateForm.value['haveAvatar'] = true;
       //this.upload(this.avatarImage);
-      this.mediaHandler.upload(this.updateForm);
+      this.mediaHandler.upload(this.updateForm, false);
       //alert((this.updateForm.value))
     }
   }
@@ -82,73 +82,6 @@ export class EditProfilePage {
   chooseAvatar() {
     this.mediaHandler.chooseAvatar();
   }
-
- /* chooseAvatar() {
-    const menu = this.cameraMenu.create({
-      title: 'Select your option wey',
-      buttons: [
-        {
-          text: 'Take picture',
-          handler: () => this.cameraOp(1)
-        },{
-          text: 'Select picture',
-          handler: () => this.cameraOp(0)         
-        }
-      ]
-    });
-    menu.present();
-  }
-
-  upload(avatar: any) {
-    const fileTransfer: FileTransferObject = this.transfer.create();
-    let options: FileUploadOptions = {
-       fileKey: 'file',
-       fileName: this.generateAvatarName(this.updateForm.value.username),
-       chunkedMode: false,
-       mimeType: "image/jpeg",
-       headers: {},
-       params: {data: this.updateForm.value}
-    }
-    fileTransfer.upload(avatar, 'http://192.168.43.246:80/trippygram/api/api/uploadFile.php', options)
-     .then((data) => {
-       let path = (JSON.parse(data.response)).path;
-       this.path = path;
-       this.updateForm.value.path = this.path;
-       alert(JSON.stringify(this.updateForm.value))
-       this.http.fetch(this.updateForm.value, 'POST', 'updateUser.php')
-        .subscribe((res) => {
-          alert('asdasdasdas'+JSON.stringify(res))
-        },
-        (err) => alert('xdxd'+JSON.stringify(err)))
-    })
-    .catch(err => alert('xdxd22'+JSON.stringify(err)))
-  }
-
-  cameraOp(sourceType:number) {
-    const options: CameraOptions = {
-      quality: 50,
-      destinationType: this.camera.DestinationType.DATA_URL,
-      encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE,
-      correctOrientation: true,
-      sourceType:sourceType,
-    }
-
-    this.camera.getPicture(options).then((imageData) => {
-      let base64Image = 'data:image/jpeg;base64,' + imageData;
-      this.avatarImage = base64Image;
-      // alert(this.avatarImage);
-      // this.upload(this.avatarImage);
-    }, (err) => {
-      // Handle error
-      alert(JSON.stringify(err))
-    });
-  }
-
-  generateAvatarName(username: string) {
-    let randomNum = Math.random() * (153462458942 - 1253) + 1732;
-    return `${username}_ava_${randomNum}.jpg`;
-  }*/
 
   closeit() {
     this.viewCtrl.dismiss();
