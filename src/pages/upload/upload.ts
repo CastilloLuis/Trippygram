@@ -5,6 +5,7 @@ import { Camera } from '@ionic-native/camera';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { HttpProvider } from '../../providers/http/http';
 import { NativeStorage } from '@ionic-native/native-storage';
+import { Geolocation } from '@ionic-native/geolocation';
 
 @IonicPage()
 @Component({
@@ -16,12 +17,23 @@ import { NativeStorage } from '@ionic-native/native-storage';
     FileTransferObject,
     HttpProvider,
     NativeStorage,
-    CameraProvider    
+    CameraProvider,
+    Geolocation
   ]
 })
 export class UploadPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private mediaHandler: CameraProvider) {
+  uploadForm;
+  caption: string = '';
+  ht: string = '';
+  tagged: string = '';
+  path: string = '';
+  checkedLocation: boolean;
+  lat: number = null;
+  long: number = null;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private mediaHandler: CameraProvider,
+              private geolocation: Geolocation) {
   }
 
   ionViewDidLoad() {
@@ -29,12 +41,33 @@ export class UploadPage {
   }
 
   choosePicture() {
-    //this.mediaHandler.choose();
-    alert('xd')
+    this.mediaHandler.choose();
   }
 
   submitForm() {
+    let json = {
+      userid: 1,
+      caption: this.caption,
+      tagged: ((this.tagged).split(',')),
+      ht: ((this.ht).split(',')),
+    }
+    if(this.checkedLocation) {
+      this.getLocation();
+      json['lat'] = this.lat,
+      json['long'] = this.long
+    }
+    console.log(this.checkedLocation)
+    console.log(json)
+    this.mediaHandler.upload(json, true);
+  }
 
+  getLocation() {
+    this.geolocation.getCurrentPosition().then((resp) => {
+      this.lat = resp.coords.latitude;
+      this.long = resp.coords.longitude;
+     }).catch((error) => {
+       alert(`Error getting location ${error}`);
+     });
   }
 
 }

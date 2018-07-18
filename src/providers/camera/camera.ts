@@ -14,7 +14,7 @@ export class CameraProvider {
 
   profileData = <any>{};
   updateForm; 
-  avatarImage: string = '';
+  image: string = '';
   path: string = '';
   local = 'http://192.168.1.3:80/trippygram';
 
@@ -25,7 +25,7 @@ export class CameraProvider {
 
   choose() {
     const menu = this.cameraMenu.create({
-      title: 'Select your option wey',
+      title: 'Select your option',
       buttons: [
         {
           text: 'Take picture',
@@ -45,19 +45,19 @@ export class CameraProvider {
     const fileTransfer: FileTransferObject = this.transfer.create();
     let options: FileUploadOptions = {
        fileKey: 'file',
-       fileName: this.generateName(form.value.username, isPost),
+       fileName: this.generateName(form.username, isPost),
        chunkedMode: false,
        mimeType: "image/jpeg",
        headers: {},
-       params: {data: form.value}
+       params: {data: form}
     }
-    fileTransfer.upload(this.avatarImage, `${this.local}/api/api/uploadFile.php`, options)
-     .then((data) => {
+    fileTransfer.upload(this.image, `${this.local}/api/api/uploadFile.php`, options)
+     .then((data) => { 
        let path = (JSON.parse(data.response)).path;
        this.path = path;
-       form.value.path = this.path;
+       form.path = this.path;
        // alert(JSON.stringify(form.value))
-       this.http.fetch(form.value, 'POST', 'updateUser.php')
+       this.http.fetch(form, 'POST', 'updateUser.php')
         .subscribe((res) => {
           alert('asdasdasdas'+JSON.stringify(res))
         },
@@ -78,7 +78,7 @@ export class CameraProvider {
 
     this.camera.getPicture(options).then((imageData) => {
       let base64Image = 'data:image/jpeg;base64,' + imageData;
-      this.avatarImage = base64Image;
+      this.image = base64Image;
       // alert(this.avatarImage);
       // this.upload(this.avatarImage);
 
@@ -90,7 +90,7 @@ export class CameraProvider {
 
   getBase64() {
     // alert(this.avatarImage)
-    return this.avatarImage;
+    return this.image;
   }
 
   generateName(username: string, isPost: boolean) {

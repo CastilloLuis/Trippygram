@@ -15,13 +15,13 @@
     </ion-avatar>
   </div>
 
-  <form id="uploadForm">
+  <div id="uploadForm">
     <ion-item>
       <ion-label floating>
         <ion-icon left name="paper"></ion-icon>
         Caption
       </ion-label>
-      <ion-textarea type="text" id="caption"></ion-textarea>
+      <ion-textarea type="text" id="caption" [(ngModel)]="caption"></ion-textarea>
     </ion-item>
 
     <ion-item>
@@ -29,7 +29,7 @@
         <ion-icon left name="people"></ion-icon>
         Tag Users
       </ion-label>
-      <ion-input type="text" id="tagged"></ion-input>
+      <ion-input type="text" id="tagged" [(ngModel)]="tagged"></ion-input>
     </ion-item>
 
     <ion-item>
@@ -37,17 +37,23 @@
         <ion-icon left name="bookmark"></ion-icon>
         HashTags
       </ion-label>
-      <ion-input type="text" id="tagged"></ion-input>
+      <ion-input type="text" id="ht" [(ngModel)]="ht"></ion-input>
     </ion-item>
 
     <br/>
-    <button ion-button full color="light">
-      Add location 
-      <ion-icon left name="bookmark"></ion-icon>
-    </button>
+
+    <ion-item>
+        <ion-label>
+          Get Location
+          <ion-icon right name="bookmark"></ion-icon>
+        </ion-label>
+        <ion-checkbox color="secondary" checked="false" [(ngModel)]="checkedLocation"></ion-checkbox>
+    </ion-item> 
+
     <br/>
-    <button ion-button round full type="submit" color="secondary" style="font-size: 20px;">
+
+    <button ion-button round full disabled="true" type="button" (click)="submitForm()" color="secondary" style="font-size: 20px;">
         <ion-icon name="checkmark"></ion-icon>
       </button>
-  </form>
+    </div>
 </ion-content>
