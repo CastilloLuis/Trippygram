@@ -26,7 +26,6 @@ export class LoginPage {
   }
 
   loginForm() {
-    //this.navCtrl.setRoot(TabsPage);
    if(!(this.helpers.validateJSON(this.user_login, 2))) {
       (this.alertCtrl.create({
         title: 'Error :(',
@@ -34,11 +33,9 @@ export class LoginPage {
         buttons: ['OK']
       })).present();
     } else {
-      alert('fino')
       this.http.fetch(this.user_login, 'POST', 'login.php')
         .subscribe((res) => {
           if(res.status === 200) {
-            // alert(JSON.stringify(res))
             this.nativeSto.setItem('loggeduser', {username: res.username, userid: res.user_id});
             this.navCtrl.setRoot(TabsPage);
           } else {

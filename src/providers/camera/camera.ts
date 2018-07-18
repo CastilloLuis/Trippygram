@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HttpProvider } from '../http/http';
 import { Camera, CameraOptions } from '@ionic-native/camera';
@@ -17,16 +16,14 @@ export class CameraProvider {
   updateForm; 
   avatarImage: string = '';
   path: string = '';
-  loggeduser = <any>{};
-  local = 'http://192.168.1.3:80/trippygram/';
-  currentavatar: string = '';
+  local = 'http://192.168.1.3:80/trippygram';
 
   constructor(private camera: Camera, private cameraMenu: ActionSheetController, private transfer: FileTransfer,
               private http: HttpProvider) {
     console.log('Hello CameraProvider Provider');
   }
 
-  chooseAvatar() {
+  choose() {
     const menu = this.cameraMenu.create({
       title: 'Select your option wey',
       buttons: [
@@ -54,7 +51,7 @@ export class CameraProvider {
        headers: {},
        params: {data: form.value}
     }
-    fileTransfer.upload(this.avatarImage, 'http://192.168.1.3:80/trippygram/api/api/uploadFile.php', options)
+    fileTransfer.upload(this.avatarImage, `${this.local}/api/api/uploadFile.php`, options)
      .then((data) => {
        let path = (JSON.parse(data.response)).path;
        this.path = path;

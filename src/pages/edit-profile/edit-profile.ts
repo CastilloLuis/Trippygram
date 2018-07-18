@@ -29,7 +29,6 @@ export class EditProfilePage {
   path: string = '';
   loggeduser = <any>{};
   local = 'http://192.168.1.3:80/trippygram/';
-  currentavatar: string = '';
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController,
               private camera: Camera, private cameraMenu: ActionSheetController, private transfer: FileTransfer,
@@ -80,7 +79,7 @@ export class EditProfilePage {
   }
 
   chooseAvatar() {
-    this.mediaHandler.chooseAvatar();
+    this.mediaHandler.choose();
   }
 
   closeit() {
