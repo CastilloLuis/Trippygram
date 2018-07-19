@@ -51,15 +51,15 @@ export class EditProfilePage {
   submitForm() {
     console.log('asdasd');
     this.updateForm.value['userid'] = this.loggeduser['userid'];
-    alert(this.loggeduser['userid']);
+    // alert(this.loggeduser['userid']);
     // alert(this.mediaHandler.getBase64())
     if((this.mediaHandler.getBase64()).length === 0) {
       this.updateForm.value['haveAvatar'] = false;
-      alert('okaa');
+      // alert('okaa');
       this.http.fetch(this.updateForm.value, 'POST', 'updateUser.php')
         .subscribe((res) => {
-          alert('oka')
-          console.log('asdas'+(alert(JSON.stringify(res))))
+          // alert('oka')
+          console.log('Error-> '+(alert(JSON.stringify(res))))
         },
         (err) => console.log(alert(JSON.stringify(err))));
         //alert((this.updateForm.value))
