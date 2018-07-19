@@ -7,6 +7,7 @@ import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-nati
 import { HttpProvider } from '../../providers/http/http';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { CameraProvider } from '../../providers/camera/camera';
+import { TokenProvider } from '../../providers/token/token';
 
 @IonicPage()
 @Component({
@@ -18,7 +19,8 @@ import { CameraProvider } from '../../providers/camera/camera';
     FileTransferObject,
     HttpProvider,
     NativeStorage,
-    CameraProvider
+    CameraProvider,
+    TokenProvider
   ]
 })
 export class EditProfilePage {
@@ -28,27 +30,18 @@ export class EditProfilePage {
   avatarImage: string = '';
   path: string = '';
   loggeduser = <any>{};
-  local = 'http://192.168.1.3:80/trippygram/';
+  local = 'http://192.168.1.6:80/trippygram/';
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController,
               private camera: Camera, private cameraMenu: ActionSheetController, private transfer: FileTransfer,
-              private http: HttpProvider, private nativeSto: NativeStorage, private mediaHandler: CameraProvider) {
-    console.log(navParams.get('data'));
-
-    this.nativeSto.getItem('loggeduser')
-      .then(
-        (data) => this.loggeduser = data,
-        (err) => alert('error: ' + err)
-      ).catch((err) => alert('error2: ' + err));  
-
-    this.profileData = navParams.get('data');
-    this.updateForm = new FormGroup({
-      name: new FormControl(this.profileData['name'], [Validators.required]),
-      email: new FormControl(this.profileData['email'], [Validators.required, Validators.email]),
-      username: new FormControl(this.profileData['username'], [Validators.required]),
-      password: new FormControl("", [Validators.required]),
-      biography: new FormControl(this.profileData['biography'], [Validators.required])
-    });    
+              private http: HttpProvider, private nativeSto: NativeStorage, private mediaHandler: CameraProvider,
+              private userToken: TokenProvider) {
+                console.log(navParams.get('data'));
+                userToken.userToken()
+                  .then((data) => this.loggeduser = data)
+                  .catch((err) => console.log(err))
+                this.profileData = navParams.get('data');
+                this.initReactiveForm();
   }
 
   ionViewDidLoad() {
@@ -80,6 +73,16 @@ export class EditProfilePage {
 
   chooseAvatar() {
     this.mediaHandler.choose();
+  }
+
+  initReactiveForm() {
+    this.updateForm = new FormGroup({
+      name: new FormControl(this.profileData['name'], [Validators.required]),
+      email: new FormControl(this.profileData['email'], [Validators.required, Validators.email]),
+      username: new FormControl(this.profileData['username'], [Validators.required]),
+      password: new FormControl("", [Validators.required]),
+      biography: new FormControl(this.profileData['biography'], [Validators.required])
+    });   
   }
 
   closeit() {

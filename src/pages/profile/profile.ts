@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { EditProfilePage } from '../edit-profile/edit-profile';
 import { HttpProvider } from '../../providers/http/http';
+import { TokenProvider } from '../../providers/token/token';
 import { DomSanitizer } from '@angular/platform-browser';
 import { PostPage } from '../post/post';
 import { NativeStorage } from '@ionic-native/native-storage';
@@ -11,7 +12,7 @@ import { HomePage } from '../home/home';
 @Component({
   selector: 'page-profile',
   templateUrl: 'profile.html',
-  providers: [NativeStorage]
+  providers: [NativeStorage, TokenProvider]
 })
 export class ProfilePage {
 
@@ -25,21 +26,16 @@ export class ProfilePage {
   posts = '';
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private modalCtrl: ModalController, private http: HttpProvider,
-              private domsan: DomSanitizer, private nativeSto: NativeStorage) {
+              private domsan: DomSanitizer, private nativeSto: NativeStorage, private userToken: TokenProvider) {
                 this.posts = "userPosts";
+                userToken.userToken()
+                  .then((data) => this.loggeduser = data)
+                  .catch((err) => console.log(err))
+                //this.loggeduser = userToken.userToken();
   }
 
   ionViewWillEnter() {
-    this.mypost = [];
-    this.liked_posts = [];
-    this.tagged_posts = [];
-    this.nativeSto.getItem('loggeduser')
-      .then(
-        (data) => this.loggeduser = data,
-        (err) => alert('error: ' + err)
-      ).catch((err) => alert('error2: ' + err));
-
-    this.liked_posts = [];
+    // alert('userdatashit' + this.loggeduser);
     this.http.fetch(null, 'GET', `profile.php?user_id=${this.loggeduser['userid']}`)
       .subscribe((res) => {
         console.log(res)
@@ -48,7 +44,7 @@ export class ProfilePage {
           this.profileData = res.data;
           this.profileData['myavatar'] = (res.data.avatar).split('trippygram/')[1];          
           delete this.profileData['avatar']
-          alert(this.profileData['myavatar'])
+          // alert(this.profileData['myavatar'])
           res.posts.map((p) => {
             p.username = res.data.username;
             this.mypost.push(p)
@@ -60,9 +56,15 @@ export class ProfilePage {
           this.liked_posts.push(this.loggeduser);
           this.mypost.push(this.loggeduser);
           this.tagged_posts.push(this.loggeduser);
-          alert(JSON.stringify(this.profileData));
+          // alert(JSON.stringify(this.profileData));
         }
       });
+  }
+
+  ionViewWillLeave(){
+    this.mypost = [];
+    this.liked_posts = [];
+    this.tagged_posts = [];
   }
 
   getTaggedPosts() {

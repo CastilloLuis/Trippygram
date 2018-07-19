@@ -1,35 +1,37 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HttpProvider } from '../../providers/http/http';
+import { TokenProvider } from '../../providers/token/token';
 import { NativeStorage } from '@ionic-native/native-storage';
 
 @IonicPage()
 @Component({
   selector: 'page-dashboard',
   templateUrl: 'dashboard.html',
-  providers: [NativeStorage]
+  providers: [NativeStorage, TokenProvider]
 })
 export class DashboardPage {
 
   dashboardPosts = [];
   loggeduser: Object = <any>{};
+  loaded: boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private http: HttpProvider,
-              private nativeSto: NativeStorage) {
+              private nativeSto: NativeStorage, private userToken: TokenProvider) {
+                userToken.userToken()
+                .then((data) => this.loggeduser = data)
+                .catch((err) => console.log(err))
+
   }
 
   ionViewWillEnter() {
+    this.loaded = false;
     this.dashboardPosts = [];
-    this.nativeSto.getItem('loggeduser')
-      .then(
-        (data) => {
-          this.loggeduser = data
-          this.showDashboard();
-        },
-        (err) => alert('error: ' + err)
-      ).catch((err) => alert('error2: ' + err));
-      // alert(JSON.stringify(this.loggeduser))
-    console.log('ionViewDidLoad DashboardPage');
+    this.showDashboard();
+  }
+
+  ionViewWillLeave(){
+    this.dashboardPosts = [];
   }
   
   showDashboard() {
@@ -38,10 +40,20 @@ export class DashboardPage {
         (res) =>  {
           if(res.status === 200) {
             res.data.map(p => this.dashboardPosts.push(p));
-            alert(JSON.stringify(this.dashboardPosts))
+            this.loaded = true;
+            // alert(JSON.stringify(this.dashboardPosts))
+          } else {
+            alert('Error finding posts :(');
           }
         }
       );
+  }
+
+  spinnerStyle() {
+    let style = {
+      'display': this.loaded ? 'none' : 'block'
+    }
+    return style;
   }
 
 }

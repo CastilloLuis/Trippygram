@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { CameraProvider } from '../../providers/camera/camera';
 import { Camera } from '@ionic-native/camera';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { HttpProvider } from '../../providers/http/http';
+import { TokenProvider } from '../../providers/token/token';
 import { NativeStorage } from '@ionic-native/native-storage';
+import { CameraProvider } from '../../providers/camera/camera';
 import { Geolocation } from '@ionic-native/geolocation';
 
 @IonicPage()
@@ -18,6 +19,7 @@ import { Geolocation } from '@ionic-native/geolocation';
     HttpProvider,
     NativeStorage,
     CameraProvider,
+    TokenProvider,
     Geolocation
   ]
 })
@@ -34,16 +36,14 @@ export class UploadPage {
   loggeduser: Object = <any>{};
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private mediaHandler: CameraProvider,
-              private geolocation: Geolocation, private nativeSto: NativeStorage) {
+              private geolocation: Geolocation, private nativeSto: NativeStorage, private userToken: TokenProvider) {
+                userToken.userToken()
+                  .then((data) => this.loggeduser = data)
+                  .catch((err) => console.log(err))
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UploadPage');
-    this.nativeSto.getItem('loggeduser')
-      .then(
-        (data) => this.loggeduser = data,
-        (err) => alert('error: ' + err)
-      ).catch((err) => alert('error2: ' + err));    
   }
 
   choosePicture() {
@@ -64,7 +64,7 @@ export class UploadPage {
     }
     alert(this.checkedLocation)
     alert(JSON.stringify(json))
-    //this.mediaHandler.upload(json, true, 'upload.php');
+    this.mediaHandler.upload(json, true, 'upload.php');
   }
 
   getLocation() {

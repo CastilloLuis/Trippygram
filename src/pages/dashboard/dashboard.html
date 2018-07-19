@@ -1,11 +1,17 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>dashboard</ion-title>
+    <ion-title>Trippygram</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 <ion-content padding>
+  <div 
+      align="center"
+      [ngStyle]="spinnerStyle()"
+  >
+    <ion-spinner name="crescent"></ion-spinner>
+  </div>
   <postcard *ngFor="let p of dashboardPosts" [postData]="p" [loggedUser]=loggeduser></postcard>
 </ion-content>

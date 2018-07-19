@@ -21,6 +21,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HttpProvider } from '../providers/http/http';
 import { ReactiveFormsModule } from "@angular/forms";
 import { CameraProvider } from '../providers/camera/camera';
+import { TokenProvider } from '../providers/token/token';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { CameraProvider } from '../providers/camera/camera';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     HttpProvider,
     HttpClientModule,
-    CameraProvider
+    CameraProvider,
+    TokenProvider
   ]
 })
 export class AppModule {}
