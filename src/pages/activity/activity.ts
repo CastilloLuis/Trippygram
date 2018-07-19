@@ -28,7 +28,7 @@ export class ActivityPage {
 
     this.http.fetch(null, 'GET', `mentions.php?userid=${this.loggeduser.userid}`)
       .subscribe((res) => res.data.map((r) => this.mentions.push(r)));
-      console.log(this.mentions)
+      alert(this.mentions)
   }
 
 }

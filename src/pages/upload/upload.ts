@@ -62,13 +62,14 @@ export class UploadPage {
       json['lat'] = this.lat,
       json['long'] = this.long
     }
-    console.log(this.checkedLocation)
-    console.log(json)
-    this.mediaHandler.upload(json, true, 'upload.php');
+    alert(this.checkedLocation)
+    alert(JSON.stringify(json))
+    //this.mediaHandler.upload(json, true, 'upload.php');
   }
 
   getLocation() {
     this.geolocation.getCurrentPosition().then((resp) => {
+      alert(JSON.stringify(resp))
       this.lat = resp.coords.latitude;
       this.long = resp.coords.longitude;
      }).catch((error) => {
