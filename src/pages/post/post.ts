@@ -6,6 +6,7 @@ import { NativeStorage } from '@ionic-native/native-storage';
 @Component({
   selector: 'page-post',
   templateUrl: 'post.html',
+  providers: [NativeStorage]
 })
 export class PostPage {
 

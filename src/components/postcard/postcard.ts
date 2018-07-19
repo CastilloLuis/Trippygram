@@ -9,7 +9,7 @@ export class PostcardComponent {
 
   @Input() postData: Object = {};
   @Input() loggedUser: Object = {};
-  local = 'http://192.168.1.3:80/trippygram/'
+  local = 'http://192.168.1.6:80/trippygram/'
   text: string;
 
   constructor(private http: HttpProvider, private ref: ElementRef) {

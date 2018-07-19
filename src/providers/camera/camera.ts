@@ -16,7 +16,7 @@ export class CameraProvider {
   updateForm; 
   image: string = '';
   path: string = '';
-  local = 'http://192.168.1.3:80/trippygram';
+  local = 'http://192.168.1.6:80/trippygram';
 
   constructor(private camera: Camera, private cameraMenu: ActionSheetController, private transfer: FileTransfer,
               private http: HttpProvider) {
@@ -41,7 +41,7 @@ export class CameraProvider {
     menu.present();
   }
 
-  upload(form: any, isPost: boolean) {
+  upload(form: any, isPost: boolean, url: any) {
     const fileTransfer: FileTransferObject = this.transfer.create();
     let options: FileUploadOptions = {
        fileKey: 'file',
@@ -57,7 +57,7 @@ export class CameraProvider {
        this.path = path;
        form.path = this.path;
        // alert(JSON.stringify(form.value))
-       this.http.fetch(form, 'POST', 'updateUser.php')
+       this.http.fetch(form, 'POST', url)
         .subscribe((res) => {
           alert('asdasdasdas'+JSON.stringify(res))
         },

@@ -19,7 +19,7 @@ export class ProfilePage {
   mypost = [];
   liked_posts = [];
   tagged_posts = [];
-  local = 'http://192.168.1.3:80/trippygram/';
+  local = 'http://192.168.1.6:80/trippygram/';
   viewPost = PostPage;
   loggeduser: Object = <any>{};
   posts = '';
@@ -59,7 +59,8 @@ export class ProfilePage {
           console.log(this.liked_posts)
           this.liked_posts.push(this.loggeduser);
           this.mypost.push(this.loggeduser);
-          this.tagged_posts.push(this.loggeduser)
+          this.tagged_posts.push(this.loggeduser);
+          alert(JSON.stringify(this.profileData));
         }
       });
   }

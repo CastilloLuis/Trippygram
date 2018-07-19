@@ -38,6 +38,7 @@ export class DashboardPage {
         (res) =>  {
           if(res.status === 200) {
             res.data.map(p => this.dashboardPosts.push(p));
+            alert(JSON.stringify(this.dashboardPosts))
           }
         }
       );

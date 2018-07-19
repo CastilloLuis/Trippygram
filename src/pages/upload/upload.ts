@@ -31,13 +31,19 @@ export class UploadPage {
   checkedLocation: boolean;
   lat: number = null;
   long: number = null;
+  loggeduser: Object = <any>{};
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private mediaHandler: CameraProvider,
-              private geolocation: Geolocation) {
+              private geolocation: Geolocation, private nativeSto: NativeStorage) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UploadPage');
+    this.nativeSto.getItem('loggeduser')
+      .then(
+        (data) => this.loggeduser = data,
+        (err) => alert('error: ' + err)
+      ).catch((err) => alert('error2: ' + err));    
   }
 
   choosePicture() {
@@ -46,7 +52,7 @@ export class UploadPage {
 
   submitForm() {
     let json = {
-      userid: 1,
+      userid: this.loggeduser['userid'],
       caption: this.caption,
       tagged: ((this.tagged).split(',')),
       ht: ((this.ht).split(',')),
@@ -58,7 +64,7 @@ export class UploadPage {
     }
     console.log(this.checkedLocation)
     console.log(json)
-    this.mediaHandler.upload(json, true);
+    this.mediaHandler.upload(json, true, 'upload.php');
   }
 
   getLocation() {

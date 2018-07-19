@@ -73,7 +73,7 @@ export class EditProfilePage {
     } else {
       this.updateForm.value['haveAvatar'] = true;
       //this.upload(this.avatarImage);
-      this.mediaHandler.upload(this.updateForm.value, false);
+      this.mediaHandler.upload(this.updateForm.value, false, 'updateUser.php');
       //alert((this.updateForm.value))
     }
   }
