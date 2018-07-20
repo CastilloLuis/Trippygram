@@ -47,11 +47,8 @@ export class PostcardComponent {
 
   newDate(d) {
     let today = new Date();
-    alert(today.getFullYear())
-    alert(today.getMonth()+1)
-    alert(today.getDay())
     return distanceInWords(
-      new Date(today.getFullYear(), today.getMonth()+1, today.getDay()),
+      new Date(today.getFullYear(), today.getMonth()+1, today.getDate()),
       new Date(d[0], d[1], d[2])
     );
   }
