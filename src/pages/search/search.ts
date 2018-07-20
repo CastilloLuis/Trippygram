@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HttpProvider } from '../../providers/http/http';
+import { TokenProvider } from '../../providers/token/token';
+import { NativeStorage } from '@ionic-native/native-storage';
 
 /**
  * Generated class for the SearchPage page.
@@ -13,6 +15,7 @@ import { HttpProvider } from '../../providers/http/http';
 @Component({
   selector: 'page-search',
   templateUrl: 'search.html',
+  providers: [TokenProvider, NativeStorage, HttpProvider]
 })
 export class SearchPage {
 

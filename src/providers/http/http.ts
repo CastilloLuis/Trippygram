@@ -1,20 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
+import { TokenProvider } from '../token/token';
 
-/*
-  Generated class for the HttpProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class HttpProvider {
   
-  svhost: string = 'http://192.168.1.6:80/trippygram/api/api';
+  svhost: string = '';
 
-  constructor(public http: HttpClient) {
+  constructor(public http: HttpClient, private TokenProvider: TokenProvider) {
     console.log('Hello HttpProvider Provider');
+    this.svhost = `${this.TokenProvider.serverIP()}/api/api`;
   }
   
   fetch(data, method, url){

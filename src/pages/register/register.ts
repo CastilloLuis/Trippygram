@@ -2,12 +2,14 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, ToastController, ViewController } from 'ionic-angular';
 import { helpers } from '../../global';
 import { HttpProvider } from '../../providers/http/http';
+import { TokenProvider } from '../../providers/token/token';
+import { NativeStorage } from '@ionic-native/native-storage';
 
 @IonicPage()
 @Component({
   selector: 'page-register',
   templateUrl: 'register.html',
-  providers: [helpers, HttpProvider]
+  providers: [helpers, HttpProvider, TokenProvider, NativeStorage]
 })
 export class RegisterPage {
 

@@ -1,16 +1,17 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, ModalController, ViewController } from 'ionic-angular';
-import { NativeStorage } from '@ionic-native/native-storage';
 import { helpers } from '../../global';
 import { HttpProvider } from '../../providers/http/http';
 import { TabsPage } from '../tabs/tabs';
 import { EditProfilePage } from '../edit-profile/edit-profile';
+import { TokenProvider } from '../../providers/token/token';
+import { NativeStorage } from '@ionic-native/native-storage';
 
 @IonicPage()
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
-  providers: [helpers, NativeStorage]
+  providers: [helpers, NativeStorage, TokenProvider, HttpProvider]
 })
 export class LoginPage {
 

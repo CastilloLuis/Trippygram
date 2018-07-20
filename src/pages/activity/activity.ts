@@ -8,7 +8,7 @@ import { NativeStorage } from '@ionic-native/native-storage';
 @Component({
   selector: 'page-activity',
   templateUrl: 'activity.html',
-  providers: [NativeStorage, TokenProvider]
+  providers: [NativeStorage, TokenProvider, HttpProvider]
 })
 export class ActivityPage {
 

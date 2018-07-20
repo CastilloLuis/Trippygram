@@ -58,23 +58,23 @@ export class UploadPage {
       ht: ((this.ht).split(',')),
     }
     if(this.checkedLocation) {
-      this.getLocation();
-      json['lat'] = this.lat,
-      json['long'] = this.long
+      this.getLocation()
+        .then((pos: any) => {
+          json['lat'] = pos.latitude;
+          json['long'] = pos.longitude;
+          alert(this.checkedLocation);
+          alert(JSON.stringify(json));
+        })
     }
-    alert(this.checkedLocation)
-    alert(JSON.stringify(json))
     this.mediaHandler.upload(json, true, 'upload.php');
   }
 
   getLocation() {
-    this.geolocation.getCurrentPosition().then((resp) => {
-      alert(JSON.stringify(resp))
-      this.lat = resp.coords.latitude;
-      this.long = resp.coords.longitude;
-     }).catch((error) => {
-       alert(`Error getting location ${error}`);
-     });
+    return new Promise((res, rej) => {
+      this.geolocation.getCurrentPosition({timeout: 20000})
+        .then((pos) => res(pos.coords))
+        .catch((error) => rej(error));    
+    });
   }
 
 }

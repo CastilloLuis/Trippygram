@@ -8,7 +8,7 @@ import { NativeStorage } from '@ionic-native/native-storage';
 @Component({
   selector: 'page-dashboard',
   templateUrl: 'dashboard.html',
-  providers: [NativeStorage, TokenProvider]
+  providers: [NativeStorage, TokenProvider, HttpProvider]
 })
 export class DashboardPage {
 

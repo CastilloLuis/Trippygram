@@ -12,7 +12,7 @@ import { HomePage } from '../home/home';
 @Component({
   selector: 'page-profile',
   templateUrl: 'profile.html',
-  providers: [NativeStorage, TokenProvider]
+  providers: [NativeStorage, TokenProvider, HttpProvider]
 })
 export class ProfilePage {
 
@@ -20,10 +20,10 @@ export class ProfilePage {
   mypost = [];
   liked_posts = [];
   tagged_posts = [];
-  local = 'http://192.168.1.6:80/trippygram/';
   viewPost = PostPage;
   loggeduser: Object = <any>{};
   posts = '';
+  local = '';
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private modalCtrl: ModalController, private http: HttpProvider,
               private domsan: DomSanitizer, private nativeSto: NativeStorage, private userToken: TokenProvider) {
@@ -31,6 +31,7 @@ export class ProfilePage {
                 userToken.userToken()
                   .then((data) => this.loggeduser = data)
                   .catch((err) => console.log(err))
+                  this.local = `${userToken.serverIP()}/`;
                 //this.loggeduser = userToken.userToken();
   }
 

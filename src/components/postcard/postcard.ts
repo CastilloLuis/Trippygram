@@ -1,5 +1,6 @@
 import { Component, Input, EventEmitter, Output, ElementRef } from '@angular/core';
 import { HttpProvider } from '../../providers/http/http';
+import { TokenProvider } from '../../providers/token/token';
 
 @Component({
   selector: 'postcard',
@@ -9,12 +10,13 @@ export class PostcardComponent {
 
   @Input() postData: Object = {};
   @Input() loggedUser: Object = {};
-  local = 'http://192.168.1.6:80/trippygram/'
+  local = '';
   text: string;
 
-  constructor(private http: HttpProvider, private ref: ElementRef) {
+  constructor(private http: HttpProvider, private ref: ElementRef, private tokenProvider: TokenProvider) {
     console.log('Hello PostcardComponent Component');
     this.text = 'Hello World';
+    this.local = `${tokenProvider.serverIP()}/`;
   }
 
   ngAfterViewInit() {

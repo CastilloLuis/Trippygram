@@ -23,6 +23,8 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { CameraProvider } from '../providers/camera/camera';
 import { TokenProvider } from '../providers/token/token';
 
+import { AgmCoreModule } from '@agm/core';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -43,7 +45,10 @@ import { TokenProvider } from '../providers/token/token';
     BrowserModule,
     IonicModule.forRoot(MyApp),
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule, 
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyABL10rVzKJzz95UMOp1Jy6mkpMMGsRGAg'
+    })    
   ],
   bootstrap: [IonicApp],
   entryComponents: [

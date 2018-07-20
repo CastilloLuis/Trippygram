@@ -30,7 +30,7 @@ export class EditProfilePage {
   avatarImage: string = '';
   path: string = '';
   loggeduser = <any>{};
-  local = 'http://192.168.1.6:80/trippygram/';
+  local = '';
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController,
               private camera: Camera, private cameraMenu: ActionSheetController, private transfer: FileTransfer,
@@ -42,6 +42,7 @@ export class EditProfilePage {
                   .catch((err) => console.log(err))
                 this.profileData = navParams.get('data');
                 this.initReactiveForm();
+                this.local = `${userToken.serverIP()}/`;
   }
 
   ionViewDidLoad() {

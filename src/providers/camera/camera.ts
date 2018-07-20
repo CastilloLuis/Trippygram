@@ -3,12 +3,8 @@ import { HttpProvider } from '../http/http';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { ActionSheetController } from 'ionic-angular';
-/*
-  Generated class for the CameraProvider provider.
+import { TokenProvider } from '../token/token';
 
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class CameraProvider {
 
@@ -16,11 +12,12 @@ export class CameraProvider {
   updateForm; 
   image: string = '';
   path: string = '';
-  local = 'http://192.168.1.6:80/trippygram';
+  local = '';
 
   constructor(private camera: Camera, private cameraMenu: ActionSheetController, private transfer: FileTransfer,
-              private http: HttpProvider) {
-    console.log('Hello CameraProvider Provider');
+              private http: HttpProvider, private tokenProvider: TokenProvider) {
+                console.log('Hello CameraProvider Provider');
+                this.local = tokenProvider.serverIP();
   }
 
   choose() {
@@ -81,7 +78,6 @@ export class CameraProvider {
       this.image = base64Image;
       // alert(this.avatarImage);
       // this.upload(this.avatarImage);
-
     }, (err) => {
       // Handle error
       alert(JSON.stringify(err))
