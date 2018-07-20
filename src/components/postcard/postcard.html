@@ -13,6 +13,9 @@
   <ion-card-content>
     <p>{{postData.post_caption}}</p>
     <p align="right" style="color: gray;">{{date}}</p>
+    <button ion-button clear right (click)="getMap(postData.post_latitude,postData.post_longitude)">
+      <ion-icon name="navigate"></ion-icon>
+    </button>
   </ion-card-content>
   <hr/>
   

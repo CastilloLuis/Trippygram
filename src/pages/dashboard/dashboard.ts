@@ -13,14 +13,15 @@ import { NativeStorage } from '@ionic-native/native-storage';
 export class DashboardPage {
 
   dashboardPosts = [];
+  dashboard_arr = [];
   loggeduser: Object = <any>{};
   loaded: boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private http: HttpProvider,
               private nativeSto: NativeStorage, private userToken: TokenProvider) {
-                /*userToken.userToken()
+                userToken.userToken()
                 .then((data) => this.loggeduser = data)
-                .catch((err) => console.log(err))*/
+                .catch((err) => console.log(err))
 
   }
 
@@ -35,7 +36,7 @@ export class DashboardPage {
   }
   
   showDashboard() {
-    this.http.fetch(null, 'GET', `home.php?id=${1}`)
+    this.http.fetch(null, 'GET', `home.php?id=${this.loggeduser['userid']}`)
       .subscribe(
         (res) =>  {
           if(res.status === 200) {

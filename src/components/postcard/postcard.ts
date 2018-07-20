@@ -3,10 +3,12 @@ import { HttpProvider } from '../../providers/http/http';
 import { TokenProvider } from '../../providers/token/token';
 import * as esLocale from 'date-fns/locale/es/index.js';
 import distanceInWords from 'date-fns/distance_in_words'
+import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator';
 
 @Component({
   selector: 'postcard',
-  templateUrl: 'postcard.html'
+  templateUrl: 'postcard.html',
+  providers: [LaunchNavigator]
 })
 export class PostcardComponent {
 
@@ -17,7 +19,8 @@ export class PostcardComponent {
   avatar: string = '';
   date: any;
   
-  constructor(private http: HttpProvider, private ref: ElementRef, private tokenProvider: TokenProvider) {
+  constructor(private http: HttpProvider, private ref: ElementRef, private tokenProvider: TokenProvider,
+              private launchNavigator: LaunchNavigator) {
     console.log('Hello PostcardComponent Component');
     this.text = 'Hello World';
     this.local = `${tokenProvider.serverIP()}/`;
@@ -65,6 +68,16 @@ export class PostcardComponent {
         console.log(res);
       })
     console.log(this.postData)
+  }
+
+  getMap(lat, long) {
+    alert(lat)
+    alert(long)
+    this.launchNavigator.navigate([lat, long],{app: this.launchNavigator.APP.GOOGLE_MAPS})
+      .then(
+        success => console.log('Launched navigator'),
+        error => console.log('Error launching navigator', error)
+      );    
   }
 
   httpStatus(caseType, id) {

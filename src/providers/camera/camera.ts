@@ -56,7 +56,7 @@ export class CameraProvider {
        // alert(JSON.stringify(form.value))
        this.http.fetch(form, 'POST', url)
         .subscribe((res) => {
-          alert('asdasdasdas'+JSON.stringify(res))
+          //alert('asdasdasdas'+JSON.stringify(res))
         },
         (err) => alert('xdxd'+JSON.stringify(err)))
     })
