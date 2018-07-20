@@ -24,6 +24,7 @@ import { CameraProvider } from '../providers/camera/camera';
 import { TokenProvider } from '../providers/token/token';
 
 import { AgmCoreModule } from '@agm/core';
+import { DateFnsModule } from 'ngx-date-fns';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { AgmCoreModule } from '@agm/core';
     ReactiveFormsModule, 
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyABL10rVzKJzz95UMOp1Jy6mkpMMGsRGAg'
-    })    
+    }),
+    DateFnsModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [

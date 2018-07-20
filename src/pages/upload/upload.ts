@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { Camera } from '@ionic-native/camera';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { HttpProvider } from '../../providers/http/http';
@@ -7,6 +7,7 @@ import { TokenProvider } from '../../providers/token/token';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { CameraProvider } from '../../providers/camera/camera';
 import { Geolocation } from '@ionic-native/geolocation';
+import { DashboardPage } from '../dashboard/dashboard';
 
 @IonicPage()
 @Component({
@@ -25,7 +26,6 @@ import { Geolocation } from '@ionic-native/geolocation';
 })
 export class UploadPage {
 
-  uploadForm;
   caption: string = '';
   ht: string = '';
   tagged: string = '';
@@ -34,9 +34,11 @@ export class UploadPage {
   lat: number = null;
   long: number = null;
   loggeduser: Object = <any>{};
+  dashboard = DashboardPage;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private mediaHandler: CameraProvider,
-              private geolocation: Geolocation, private nativeSto: NativeStorage, private userToken: TokenProvider) {
+              private geolocation: Geolocation, private nativeSto: NativeStorage, private userToken: TokenProvider,
+              private loading: LoadingController) {
                 userToken.userToken()
                   .then((data) => this.loggeduser = data)
                   .catch((err) => console.log(err))
@@ -44,6 +46,13 @@ export class UploadPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UploadPage');
+    this.caption = '';
+    this.ht = '';
+    this.tagged = '';
+    this.path = '';
+    this.checkedLocation = false;
+    this.lat = null;
+    this.long = null;    
   }
 
   choosePicture() {
@@ -51,6 +60,8 @@ export class UploadPage {
   }
 
   submitForm() {
+    const loader = this.showLoader();
+    loader.present();
     let json = {
       userid: this.loggeduser['userid'],
       caption: this.caption,
@@ -62,11 +73,13 @@ export class UploadPage {
         .then((pos: any) => {
           json['lat'] = pos.latitude;
           json['long'] = pos.longitude;
-          alert(this.checkedLocation);
-          alert(JSON.stringify(json));
+          // alert(this.checkedLocation);
+          // alert(JSON.stringify(json));
+          this.mediaHandler.upload(json, true, 'upload.php');
+          loader.dismiss();
+          loader.onDidDismiss(() => this.navCtrl.setRoot(this.dashboard));
         })
     }
-    this.mediaHandler.upload(json, true, 'upload.php');
   }
 
   getLocation() {
@@ -75,6 +88,14 @@ export class UploadPage {
         .then((pos) => res(pos.coords))
         .catch((error) => rej(error));    
     });
+  }
+
+  showLoader() {
+    const loading = this.loading.create({
+      content: 'Uploading...',
+      spinner: 'dots'
+    });
+    return loading;  
   }
 
 }

@@ -1,6 +1,8 @@
 import { Component, Input, EventEmitter, Output, ElementRef } from '@angular/core';
 import { HttpProvider } from '../../providers/http/http';
 import { TokenProvider } from '../../providers/token/token';
+import * as esLocale from 'date-fns/locale/es/index.js';
+import distanceInWords from 'date-fns/distance_in_words'
 
 @Component({
   selector: 'postcard',
@@ -12,7 +14,9 @@ export class PostcardComponent {
   @Input() loggedUser: Object = {};
   local = '';
   text: string;
-
+  avatar: string = '';
+  date: any;
+  
   constructor(private http: HttpProvider, private ref: ElementRef, private tokenProvider: TokenProvider) {
     console.log('Hello PostcardComponent Component');
     this.text = 'Hello World';
@@ -24,8 +28,7 @@ export class PostcardComponent {
       post_id: this.postData['post_id'],
       user_id: this.loggedUser['userid']
     }
-    console.warn(data)
-    console.log((this.ref.nativeElement.querySelectorAll('.hello') as HTMLButtonElement));
+    //console.log((this.ref.nativeElement.querySelectorAll('.hello') as HTMLButtonElement));
     this.http.fetch(null, 'GET', `verifyLikes.php?user_id=${data.user_id}&post_id=${data.post_id}`)
       .subscribe((res) => {
         if(res.status === 200) {
@@ -35,6 +38,22 @@ export class PostcardComponent {
           (document.getElementById(data.post_id) as HTMLButtonElement).style.color = 'white';
         }
       });
+  }
+
+  ngOnChanges() {
+    this.avatar = `${this.local}${(((this.postData['avatar']).split('trippygram/'))[1])}`;
+    this.date = this.newDate((((this.postData['created_at']).split(' ')[0]).split('-')));
+  }
+
+  newDate(d) {
+    let today = new Date();
+    alert(today.getFullYear())
+    alert(today.getMonth()+1)
+    alert(today.getDay())
+    return distanceInWords(
+      new Date(today.getFullYear(), today.getMonth()+1, today.getDay()),
+      new Date(d[0], d[1], d[2])
+    );
   }
 
   likePost(postID: any) {

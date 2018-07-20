@@ -18,9 +18,9 @@ export class DashboardPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private http: HttpProvider,
               private nativeSto: NativeStorage, private userToken: TokenProvider) {
-                userToken.userToken()
+                /*userToken.userToken()
                 .then((data) => this.loggeduser = data)
-                .catch((err) => console.log(err))
+                .catch((err) => console.log(err))*/
 
   }
 
@@ -35,13 +35,14 @@ export class DashboardPage {
   }
   
   showDashboard() {
-    this.http.fetch(null, 'GET', `home.php?id=${this.loggeduser['userid']}`)
+    this.http.fetch(null, 'GET', `home.php?id=${1}`)
       .subscribe(
         (res) =>  {
           if(res.status === 200) {
             res.data.map(p => this.dashboardPosts.push(p));
             this.loaded = true;
             // alert(JSON.stringify(this.dashboardPosts))
+            console.log(this.dashboardPosts)
           } else {
             alert('Error finding posts :(');
           }
