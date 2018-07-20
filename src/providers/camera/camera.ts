@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpProvider } from '../http/http';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
-import { ActionSheetController } from 'ionic-angular';
+import { ActionSheetController, LoadingController } from 'ionic-angular';
 import { TokenProvider } from '../token/token';
 
 @Injectable()
@@ -15,7 +15,7 @@ export class CameraProvider {
   local = '';
 
   constructor(private camera: Camera, private cameraMenu: ActionSheetController, private transfer: FileTransfer,
-              private http: HttpProvider, private tokenProvider: TokenProvider) {
+              private http: HttpProvider, private tokenProvider: TokenProvider, private loading: LoadingController) {
                 console.log('Hello CameraProvider Provider');
                 this.local = tokenProvider.serverIP();
   }
@@ -39,6 +39,8 @@ export class CameraProvider {
   }
 
   upload(form: any, isPost: boolean, url: any) {
+    const loader = this.showLoader();
+    loader.present();
     const fileTransfer: FileTransferObject = this.transfer.create();
     let options: FileUploadOptions = {
        fileKey: 'file',
@@ -55,12 +57,20 @@ export class CameraProvider {
        form.path = this.path;
        // alert(JSON.stringify(form.value))
        this.http.fetch(form, 'POST', url)
-        .subscribe((res) => {
+        .subscribe(
+          (res) => {
           //alert('asdasdasdas'+JSON.stringify(res))
-        },
-        (err) => alert('xdxd'+JSON.stringify(err)))
+            loader.dismiss();
+          },
+          (err) => {
+            loader.dismiss();
+            alert('xdxd'+JSON.stringify(err))
+          });
     })
-    .catch(err => alert('xdxd22'+JSON.stringify(err)))
+    .catch(err => {
+      loader.dismiss();
+      alert('xdxd22'+JSON.stringify(err))
+    })
   }
 
   cameraOp(sourceType:number) {
@@ -93,5 +103,13 @@ export class CameraProvider {
     let randomNum = Math.random() * (153462458942 - 1253) + 1732;
     return ((isPost) ? `${username}_post_${randomNum}.jpg` : `${username}_avatar_${randomNum}.jpg`);
   }  
+
+  showLoader() {
+    const loading = this.loading.create({
+      content: 'Updating...',
+      spinner: 'dots'
+    });
+    return loading;  
+  }
 
 }

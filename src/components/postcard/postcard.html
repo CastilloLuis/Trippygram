@@ -6,6 +6,11 @@
     </ion-avatar>
     <h2>{{postData.username}}</h2>
     <p>{{postData.created_at}}</p>
+    <ion-fab right top (click)="getMap(postData.post_latitude,postData.post_longitude)">
+      <button ion-fab mini>
+        <ion-icon name="pin"></ion-icon>
+      </button>
+    </ion-fab>
   </ion-item>
 
   <img src="{{local}}{{postData.post_filename}}" alt="" style="width: 100%">
@@ -13,12 +18,9 @@
   <ion-card-content>
     <p>{{postData.post_caption}}</p>
     <p align="right" style="color: gray;">{{date}}</p>
-    <button ion-button clear right (click)="getMap(postData.post_latitude,postData.post_longitude)">
-      <ion-icon name="navigate"></ion-icon>
-    </button>
   </ion-card-content>
   <hr/>
-  
+
   <ion-row>
     <ion-col col-1>
       <button ion-button icon-start clear small (click)="likePost(postData.post_id)">
