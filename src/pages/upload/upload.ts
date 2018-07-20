@@ -35,13 +35,16 @@ export class UploadPage {
   long: number = null;
   loggeduser: Object = <any>{};
   dashboard = DashboardPage;
+  local = '';
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private mediaHandler: CameraProvider,
               private geolocation: Geolocation, private nativeSto: NativeStorage, private userToken: TokenProvider,
               private loading: LoadingController) {
                 userToken.userToken()
                   .then((data) => this.loggeduser = data)
-                  .catch((err) => console.log(err))
+                  .catch((err) => console.log(err));
+
+                this.local = userToken.serverIP();
   }
 
   ionViewDidLoad() {

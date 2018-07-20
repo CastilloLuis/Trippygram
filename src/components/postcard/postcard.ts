@@ -71,8 +71,8 @@ export class PostcardComponent {
   }
 
   getMap(lat, long) {
-    alert(lat)
-    alert(long)
+    /*alert(lat)
+    alert(long)*/
     this.launchNavigator.navigate([lat, long],{app: this.launchNavigator.APP.GOOGLE_MAPS})
       .then(
         success => console.log('Launched navigator'),

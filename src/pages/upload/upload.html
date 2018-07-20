@@ -10,10 +10,9 @@
 <ion-content padding>
 
   <div align="center">
+    <!--<button ion-button clear (click)="choosePicture">CHOOSE PICTURE</button>-->
     <ion-avatar (click)="choosePicture()">
-      <div style="background-color: black" width="50%" height="150px">
-        <p color="white">TAKE PICTURE</p>
-      </div>
+      <img src="{{local}}/default.jpg" style="width: 50%">
     </ion-avatar>
   </div>
 
