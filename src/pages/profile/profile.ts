@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { EditProfilePage } from '../edit-profile/edit-profile';
-import { HttpProvider } from '../../providers/http/http';
+import { UserProvider } from '../../providers/http/user/user';
 import { TokenProvider } from '../../providers/token/token';
-import { DomSanitizer } from '@angular/platform-browser';
 import { PostPage } from '../post/post';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { HomePage } from '../home/home';
@@ -12,7 +11,7 @@ import { HomePage } from '../home/home';
 @Component({
   selector: 'page-profile',
   templateUrl: 'profile.html',
-  providers: [NativeStorage, TokenProvider, HttpProvider]
+  providers: [NativeStorage, TokenProvider, UserProvider]
 })
 export class ProfilePage {
 
@@ -25,8 +24,7 @@ export class ProfilePage {
   posts = '';
   local = '';
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private modalCtrl: ModalController, private http: HttpProvider,
-              private domsan: DomSanitizer, private nativeSto: NativeStorage, private userToken: TokenProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private modalCtrl: ModalController, private http: UserProvider, private nativeSto: NativeStorage, private userToken: TokenProvider) {
                 this.posts = "userPosts";
                 userToken.userToken()
                   .then((data) => this.loggeduser = data)
@@ -37,7 +35,7 @@ export class ProfilePage {
 
   ionViewWillEnter() {
     // alert('userdatashit' + this.loggeduser);
-    this.http.fetch(null, 'GET', `profile.php?user_id=${this.loggeduser['userid']}`)
+    this.http.userProfile(`profile.php?user_id=${this.loggeduser['userid']}`)
       .subscribe((res) => {
         console.log(res)
         if(res.status === 200) {
@@ -69,7 +67,7 @@ export class ProfilePage {
   }
 
   getTaggedPosts() {
-    this.http.fetch(null, 'GET', `mentions.php?userid=${this.loggeduser['userid']}`)
+    this.http.taggedPosts(`mentions.php?userid=${this.loggeduser['userid']}`)
       .subscribe((res) => ((res.status === 200) ? res.data.map(r => this.tagged_posts.push(r)) : false));
   }
 

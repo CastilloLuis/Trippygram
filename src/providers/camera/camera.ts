@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpProvider } from '../http/http';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { ActionSheetController, LoadingController } from 'ionic-angular';
 import { TokenProvider } from '../token/token';
+import { UserProvider } from '../http/user/user';
 
 @Injectable()
 export class CameraProvider {
@@ -15,7 +15,7 @@ export class CameraProvider {
   local = '';
 
   constructor(private camera: Camera, private cameraMenu: ActionSheetController, private transfer: FileTransfer,
-              private http: HttpProvider, private tokenProvider: TokenProvider, private loading: LoadingController) {
+              private http: UserProvider, private tokenProvider: TokenProvider, private loading: LoadingController) {
                 console.log('Hello CameraProvider Provider');
                 this.local = tokenProvider.serverIP();
   }
@@ -56,7 +56,7 @@ export class CameraProvider {
        this.path = path;
        form.path = this.path;
        // alert(JSON.stringify(form.value))
-       this.http.fetch(form, 'POST', url)
+       this.http.uploadAction(url, form)
         .subscribe(
           (res) => {
           //alert('asdasdasdas'+JSON.stringify(res))
@@ -64,12 +64,12 @@ export class CameraProvider {
           },
           (err) => {
             loader.dismiss();
-            alert('xdxd'+JSON.stringify(err))
+            alert('Error fetch post'+JSON.stringify(err))
           });
     })
     .catch(err => {
       loader.dismiss();
-      alert('xdxd22'+JSON.stringify(err))
+      alert('Error'+JSON.stringify(err))
     })
   }
 

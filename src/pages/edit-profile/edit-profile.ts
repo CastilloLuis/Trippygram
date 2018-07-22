@@ -4,7 +4,7 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { ActionSheetController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
-import { HttpProvider } from '../../providers/http/http';
+import { UserProvider } from '../../providers/http/user/user';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { CameraProvider } from '../../providers/camera/camera';
 import { TokenProvider } from '../../providers/token/token';
@@ -17,7 +17,7 @@ import { TokenProvider } from '../../providers/token/token';
     Camera,
     FileTransfer,
     FileTransferObject,
-    HttpProvider,
+    UserProvider,
     NativeStorage,
     CameraProvider,
     TokenProvider
@@ -34,7 +34,7 @@ export class EditProfilePage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController,
               private camera: Camera, private cameraMenu: ActionSheetController, private transfer: FileTransfer,
-              private http: HttpProvider, private nativeSto: NativeStorage, private mediaHandler: CameraProvider,
+              private http: UserProvider, private nativeSto: NativeStorage, private mediaHandler: CameraProvider,
               private userToken: TokenProvider, private loading: LoadingController) {
                 console.log(navParams.get('data'));
                 userToken.userToken()
@@ -58,7 +58,7 @@ export class EditProfilePage {
     if((this.mediaHandler.getBase64()).length === 0) {
       this.updateForm.value['haveAvatar'] = false;
       // alert('okaa');
-      this.http.fetch(this.updateForm.value, 'POST', 'updateUser.php')
+      this.http.userEditProfile('updateUser.php', this.updateForm.value)
         .subscribe((res) => {
           // alert('oka')
           loader.dismiss();

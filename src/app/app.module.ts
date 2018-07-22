@@ -14,7 +14,10 @@ import { SearchPage } from '../pages/search/search';
 import { UploadPage } from '../pages/upload/upload';
 import { PostPage } from '../pages/post/post';
 import { ProfilePage } from '../pages/profile/profile';
+
 import { PostcardComponent } from '../components/postcard/postcard';
+import { CommentsComponent } from '../components/comments/box/comments';
+import { CommentsListComponent } from '../components/comments/comments-list/comments-list';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -25,6 +28,7 @@ import { TokenProvider } from '../providers/token/token';
 
 import { AgmCoreModule } from '@agm/core';
 import { DateFnsModule } from 'ngx-date-fns';
+
 
 @NgModule({
   declarations: [
@@ -40,7 +44,9 @@ import { DateFnsModule } from 'ngx-date-fns';
     UploadPage,
     PostPage,
     ProfilePage,
-    PostcardComponent  
+    PostcardComponent ,
+    CommentsComponent,
+    CommentsListComponent
   ],
   imports: [
     BrowserModule,

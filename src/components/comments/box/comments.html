@@ -1,0 +1,15 @@
+<ion-row>
+  <ion-col col-10>
+    <ion-textarea type="text" id="comment-box" placeholder="Tap to comment..." row="1" [(ngModel)]="comment_text"></ion-textarea>
+  </ion-col>
+  <ion-col col-2>
+    <button
+      ion-button 
+      clear 
+      color="secondary" 
+      (click)="sendComment(userid)" 
+    >
+    <ion-icon name="send"></ion-icon>
+  </button>
+  </ion-col>
+</ion-row>

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, ModalController, ViewController } from 'ionic-angular';
 import { helpers } from '../../global';
-import { HttpProvider } from '../../providers/http/http';
+import { AuthProvider } from '../../providers/http/auth/auth';
 import { TabsPage } from '../tabs/tabs';
 import { EditProfilePage } from '../edit-profile/edit-profile';
 import { TokenProvider } from '../../providers/token/token';
@@ -11,14 +11,14 @@ import { NativeStorage } from '@ionic-native/native-storage';
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
-  providers: [helpers, NativeStorage, TokenProvider, HttpProvider]
+  providers: [helpers, NativeStorage, TokenProvider, AuthProvider]
 })
 export class LoginPage {
 
   user_login = {};
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private helpers: helpers, private alertCtrl: AlertController,
-              private http: HttpProvider, private modalCtrl: ModalController, private viewCtrl: ViewController,
+              private http: AuthProvider, private modalCtrl: ModalController, private viewCtrl: ViewController,
               private nativeSto: NativeStorage) {
   }
 
@@ -34,7 +34,7 @@ export class LoginPage {
         buttons: ['OK']
       })).present();
     } else {
-      this.http.fetch(this.user_login, 'POST', 'login.php')
+      this.http.userLogin('login.php', this.user_login)
         .subscribe((res) => {
           if(res.status === 200) {
             this.nativeSto.setItem('loggeduser', {username: res.username, userid: res.user_id});

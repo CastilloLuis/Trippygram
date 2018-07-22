@@ -18,7 +18,7 @@ export class PostcardComponent {
   text: string;
   avatar: string = '';
   date: any;
-  
+  id: any;
   constructor(private http: HttpProvider, private ref: ElementRef, private tokenProvider: TokenProvider,
               private launchNavigator: LaunchNavigator) {
     console.log('Hello PostcardComponent Component');
@@ -27,6 +27,7 @@ export class PostcardComponent {
   }
 
   ngAfterViewInit() {
+    this.id = this.loggedUser['userid'];
     let data = {
       post_id: this.postData['post_id'],
       user_id: this.loggedUser['userid']

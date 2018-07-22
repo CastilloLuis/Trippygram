@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, ToastController, ViewController } from 'ionic-angular';
 import { helpers } from '../../global';
-import { HttpProvider } from '../../providers/http/http';
+import { AuthProvider } from '../../providers/http/auth/auth';
 import { TokenProvider } from '../../providers/token/token';
 import { NativeStorage } from '@ionic-native/native-storage';
 
@@ -9,14 +9,14 @@ import { NativeStorage } from '@ionic-native/native-storage';
 @Component({
   selector: 'page-register',
   templateUrl: 'register.html',
-  providers: [helpers, HttpProvider, TokenProvider, NativeStorage]
+  providers: [helpers, AuthProvider, TokenProvider, NativeStorage]
 })
 export class RegisterPage {
 
   fields = {};
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private helpers: helpers, private alertCtrl: AlertController,
-              private http: HttpProvider, private toastCtrl: ToastController, private viewCtrl: ViewController) {
+              private http: AuthProvider, private toastCtrl: ToastController, private viewCtrl: ViewController) {
   }
 
   ionViewDidLoad() {
@@ -37,7 +37,7 @@ export class RegisterPage {
       });
       alert.present();
     } else {
-      this.http.fetch(this.fields, 'POST', 'register.php')
+      this.http.userRegister('register.php', this.fields)
         .subscribe((res) => {
           if(res.status === 200) {
             success.present();
