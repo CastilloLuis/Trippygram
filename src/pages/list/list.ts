@@ -12,9 +12,11 @@ import { PostProvider } from '../../providers/http/post/post';
 export class ListPage {
 
   data: Object = {};
-  
+  likelist: boolean = false;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController) {
     this.data = this.navParams.get('data');
+    this.likelist = this.data['likelist'];
     console.log(this.data)
   }
 

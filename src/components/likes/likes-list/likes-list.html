@@ -1,12 +1,11 @@
 <ion-list>
-  <ion-item *ngFor="let c of comments">
+  <ion-item *ngFor="let l of likes">
     <ion-avatar item-start>
       <img src="https://ionicframework.com/dist/preview-app/www/assets/img/avatar-ts-woody.png">
     </ion-avatar>
     <h2>
-      @{{c.username}}
-      <span right>{{c.created_at}}</span>
+      @{{l.username}}
+      <span right>{{l.created_at}}</span>
     </h2>
-    <p>{{c.comment_text}}</p>
   </ion-item>
 </ion-list>

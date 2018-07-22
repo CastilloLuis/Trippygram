@@ -1,9 +1,8 @@
 import { Component, Input, EventEmitter, Output, ElementRef } from '@angular/core';
-import { TokenProvider } from '../../providers/token/token';
 import distanceInWords from 'date-fns/distance_in_words'
 import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator';
 import { ListPage } from '../../pages/list/list';
-import { NavController, ModalController } from 'ionic-angular';
+import { ModalController } from 'ionic-angular';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { PostProvider } from '../../providers/http/post/post';
 import { environment as ENV } from '../../environments/enviroment';
@@ -23,8 +22,8 @@ export class PostcardComponent {
   date: any;
   comment_info = {};
   listPage = ListPage;
-  constructor(private http: PostProvider, private ref: ElementRef, private tokenProvider: TokenProvider,
-              private launchNavigator: LaunchNavigator, private modalCtrl: ModalController, private nativeSto: NativeStorage) {
+  constructor(private http: PostProvider, private ref: ElementRef, private launchNavigator: LaunchNavigator, 
+              private modalCtrl: ModalController, private nativeSto: NativeStorage) {
     console.log('Hello PostcardComponent Component');
    // this.text = 'Hello World';
     this.local = `${ENV.BASE_URL}/`;

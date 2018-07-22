@@ -19,6 +19,7 @@ import { ListPage } from '../pages/list/list';
 import { PostcardComponent } from '../components/postcard/postcard';
 import { CommentsComponent } from '../components/comments/box/comments';
 import { CommentsListComponent } from '../components/comments/comments-list/comments-list';
+import { LikesListComponent } from '../components/likes/likes-list/likes-list';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -33,6 +34,7 @@ import { NativeStorage } from '@ionic-native/native-storage';
 import { ReactiveFormsModule } from "@angular/forms";
 import { AgmCoreModule } from '@agm/core';
 import { DateFnsModule } from 'ngx-date-fns';
+
 
 
 
@@ -53,7 +55,8 @@ import { DateFnsModule } from 'ngx-date-fns';
     ListPage,
     PostcardComponent ,
     CommentsComponent,
-    CommentsListComponent
+    CommentsListComponent,
+    LikesListComponent
   ],
   imports: [
     BrowserModule,
