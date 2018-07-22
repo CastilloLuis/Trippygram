@@ -4,7 +4,7 @@ import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-nati
 import { ActionSheetController, LoadingController } from 'ionic-angular';
 import { TokenProvider } from '../token/token';
 import { UserProvider } from '../http/user/user';
-
+import { environment as ENV } from '../../environments/enviroment';
 @Injectable()
 export class CameraProvider {
 
@@ -17,7 +17,7 @@ export class CameraProvider {
   constructor(private camera: Camera, private cameraMenu: ActionSheetController, private transfer: FileTransfer,
               private http: UserProvider, private tokenProvider: TokenProvider, private loading: LoadingController) {
                 console.log('Hello CameraProvider Provider');
-                this.local = tokenProvider.serverIP();
+                this.local = ENV.BASE_URL;
   }
 
   choose() {

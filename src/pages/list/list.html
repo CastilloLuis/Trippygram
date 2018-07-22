@@ -1,0 +1,17 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-buttons left>
+      <button ion-button clear (click)="closeit()">
+        <ion-icon name="close" style="font-size: 25px;"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>List</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content no-padding>
+  <comments-list [data]="data"></comments-list>
+</ion-content>

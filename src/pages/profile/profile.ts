@@ -6,6 +6,7 @@ import { TokenProvider } from '../../providers/token/token';
 import { PostPage } from '../post/post';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { HomePage } from '../home/home';
+import { environment as ENV } from '../../environments/enviroment';
 
 @IonicPage()
 @Component({
@@ -29,7 +30,7 @@ export class ProfilePage {
                 userToken.userToken()
                   .then((data) => this.loggeduser = data)
                   .catch((err) => console.log(err))
-                  this.local = `${userToken.serverIP()}/`;
+                  this.local = `${ENV.BASE_URL}/`;
                 //this.loggeduser = userToken.userToken();
   }
 

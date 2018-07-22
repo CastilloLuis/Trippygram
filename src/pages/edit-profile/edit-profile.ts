@@ -8,7 +8,7 @@ import { UserProvider } from '../../providers/http/user/user';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { CameraProvider } from '../../providers/camera/camera';
 import { TokenProvider } from '../../providers/token/token';
-
+import { environment as ENV } from '../../environments/enviroment';
 @IonicPage()
 @Component({
   selector: 'page-edit-profile',
@@ -42,7 +42,7 @@ export class EditProfilePage {
                   .catch((err) => console.log(err))
                 this.profileData = navParams.get('data');
                 this.initReactiveForm();
-                this.local = `${userToken.serverIP()}/`;
+                this.local = `${ENV.BASE_URL}/`;
   }
 
   ionViewDidLoad() {

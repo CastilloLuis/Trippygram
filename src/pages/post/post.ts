@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { TokenProvider } from '../../providers/token/token';
-import { HttpProvider } from '../../providers/http/http';
+
 @IonicPage()
 @Component({
   selector: 'page-post',
   templateUrl: 'post.html',
-  providers: [NativeStorage, TokenProvider, HttpProvider]
+  providers: [NativeStorage, TokenProvider]
 })
 export class PostPage {
 

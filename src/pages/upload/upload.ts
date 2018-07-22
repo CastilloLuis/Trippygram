@@ -8,6 +8,7 @@ import { NativeStorage } from '@ionic-native/native-storage';
 import { CameraProvider } from '../../providers/camera/camera';
 import { Geolocation } from '@ionic-native/geolocation';
 import { DashboardPage } from '../dashboard/dashboard';
+import { environment as ENV } from '../../environments/enviroment';
 
 @IonicPage()
 @Component({
@@ -44,7 +45,7 @@ export class UploadPage {
                   .then((data) => this.loggeduser = data)
                   .catch((err) => console.log(err));
 
-                this.local = userToken.serverIP();
+                this.local = ENV.BASE_URL;
   }
 
   ionViewDidLoad() {

@@ -1,14 +1,17 @@
 import { Component, Input, EventEmitter, Output, ElementRef } from '@angular/core';
-import { HttpProvider } from '../../providers/http/http';
 import { TokenProvider } from '../../providers/token/token';
-import * as esLocale from 'date-fns/locale/es/index.js';
 import distanceInWords from 'date-fns/distance_in_words'
 import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator';
+import { ListPage } from '../../pages/list/list';
+import { NavController, ModalController } from 'ionic-angular';
+import { NativeStorage } from '@ionic-native/native-storage';
+import { PostProvider } from '../../providers/http/post/post';
+import { environment as ENV } from '../../environments/enviroment';
 
 @Component({
   selector: 'postcard',
   templateUrl: 'postcard.html',
-  providers: [LaunchNavigator]
+  providers: [ LaunchNavigator, NativeStorage, PostProvider ]
 })
 export class PostcardComponent {
 
@@ -19,12 +22,12 @@ export class PostcardComponent {
   avatar: string = '';
   date: any;
   comment_info = {};
-
-  constructor(private http: HttpProvider, private ref: ElementRef, private tokenProvider: TokenProvider,
-              private launchNavigator: LaunchNavigator) {
+  listPage = ListPage;
+  constructor(private http: PostProvider, private ref: ElementRef, private tokenProvider: TokenProvider,
+              private launchNavigator: LaunchNavigator, private modalCtrl: ModalController, private nativeSto: NativeStorage) {
     console.log('Hello PostcardComponent Component');
    // this.text = 'Hello World';
-    this.local = `${tokenProvider.serverIP()}/`;
+    this.local = `${ENV.BASE_URL}/`;
   }
 
   ngAfterViewInit() {
@@ -34,7 +37,7 @@ export class PostcardComponent {
     }
     //console.log(data)
     //console.log((this.ref.nativeElement.querySelectorAll('.hello') as HTMLButtonElement));
-    this.http.fetch(null, 'GET', `verifyLikes.php?user_id=${data.user_id}&post_id=${data.post_id}`)
+    this.http.getLikes(`verifyLikes.php?user_id=${data.user_id}&post_id=${data.post_id}`)
       .subscribe((res) => {
         if(res.status === 200) {
           (document.getElementById(data.post_id) as HTMLButtonElement).style.color = 'red';
@@ -67,12 +70,20 @@ export class PostcardComponent {
     }
     console.log(data)
     console.log(postID);
-    this.http.fetch(null, 'GET', `like.php?user_id=${data.user_id}&post_id=${data.post_id}`)
+    this.http.getLikes(`like.php?user_id=${data.user_id}&post_id=${data.post_id}`)
       .subscribe((res) => {
         this.httpStatus(res, postID);
         console.log(res);
       })
     console.log(this.postData)
+  }
+
+  showList(id, likelist) {
+    console.warn(id);
+    let data = {postid: id};
+    ((likelist) ? data['likelist'] = true : data['likelist'] = false);
+    let modal = this.modalCtrl.create(this.listPage, {data: data});
+    modal.present()
   }
 
   getMap(lat, long) {

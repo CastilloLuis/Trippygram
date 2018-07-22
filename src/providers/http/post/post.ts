@@ -1,16 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
-import { TokenProvider } from '../../token/token';
+import { environment as ENV } from '../../../environments/enviroment';
 
 @Injectable()
 export class PostProvider {
   
   svhost: string = ''; 
 
-  constructor(public http: HttpClient, private TokenProvider: TokenProvider) {
+  constructor(public http: HttpClient) {
     console.log('Hello HttpProvider Provider');
-    this.svhost = `${this.TokenProvider.serverIP()}/api/api`;
+    this.svhost = `${ENV.BASE_URL}/api/api`;
   }
   
   setLike = (url) => {
@@ -31,6 +31,16 @@ export class PostProvider {
   verifyLike = (url) => {
     return this.http.get(`${this.svhost}/${url}`)
       .map((res: any) => res);        
+  }
+
+  getComments = (url) => {
+    return this.http.get(`${this.svhost}/${url}`)
+      .map((res: any) => res);            
+  }
+
+  getLikes = (url) => {
+    return this.http.get(`${this.svhost}/${url}`)
+      .map((res: any) => res);          
   }
 
 }

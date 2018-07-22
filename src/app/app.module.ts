@@ -14,6 +14,7 @@ import { SearchPage } from '../pages/search/search';
 import { UploadPage } from '../pages/upload/upload';
 import { PostPage } from '../pages/post/post';
 import { ProfilePage } from '../pages/profile/profile';
+import { ListPage } from '../pages/list/list';
 
 import { PostcardComponent } from '../components/postcard/postcard';
 import { CommentsComponent } from '../components/comments/box/comments';
@@ -34,6 +35,7 @@ import { AgmCoreModule } from '@agm/core';
 import { DateFnsModule } from 'ngx-date-fns';
 
 
+
 @NgModule({
   declarations: [
     MyApp,
@@ -48,6 +50,7 @@ import { DateFnsModule } from 'ngx-date-fns';
     UploadPage,
     PostPage,
     ProfilePage,
+    ListPage,
     PostcardComponent ,
     CommentsComponent,
     CommentsListComponent
@@ -75,7 +78,8 @@ import { DateFnsModule } from 'ngx-date-fns';
     SearchPage,
     UploadPage,
     PostPage,
-    ProfilePage
+    ProfilePage,
+    ListPage
   ],
   providers: [
     StatusBar,
@@ -86,7 +90,8 @@ import { DateFnsModule } from 'ngx-date-fns';
     PostProvider,
     HttpClientModule,
     CameraProvider,
-    TokenProvider
+    TokenProvider,
+    PostProvider
   ]
 })
 export class AppModule {}

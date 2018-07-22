@@ -28,12 +28,12 @@
       </button>
     </ion-col>
     <ion-col col-5>
-      <button ion-button clear small>
+      <button ion-button clear small  (click)="showList(postData.post_id, true)">
         12 likes
       </button>
     </ion-col>
     <ion-col col-6>
-      <button ion-button icon-start clear small right>
+      <button ion-button icon-start clear small right (click)="showList(postData.post_id, false)">
         <ion-icon name="text"></ion-icon>
         <div>4 Comments</div>
       </button>

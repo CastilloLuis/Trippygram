@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
-import { TokenProvider } from '../../token/token';
+import { environment as ENV } from '../../../environments/enviroment';
 import { Observable } from 'rxjs';
 
 @Injectable()
@@ -9,9 +9,9 @@ export class AuthProvider {
   
   svhost: string = '';
 
-  constructor(public http: HttpClient, private TokenProvider: TokenProvider) {
-    console.log('Hello HttpProvider Provider');
-    this.svhost = `${this.TokenProvider.serverIP()}/api/api`;
+  constructor(public http: HttpClient) {
+    console.log('Hello HttpProvider Provisssder');
+    this.svhost = `${ENV.BASE_URL}/api/api`;
   }
   
   userLogin = (url, data) => {

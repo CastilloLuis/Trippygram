@@ -1,22 +1,29 @@
-import { Component } from '@angular/core';
-
-/**
- * Generated class for the CommentsListComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
+import { Component, Input } from '@angular/core';
+import { PostProvider } from '../../../providers/http/post/post';
+import { TokenProvider } from '../../../providers/token/token';
 @Component({
   selector: 'comments-list',
-  templateUrl: 'comments-list.html'
+  templateUrl: 'comments-list.html',
+  providers: [PostProvider]
 })
 export class CommentsListComponent {
 
-  text: string;
+  @Input() data: Object = {};
 
-  constructor() {
+  constructor(private http: PostProvider) {
     console.log('Hello CommentsListComponent Component');
-    this.text = 'Hello World';
   }
+
+  ngAfterViewInit() {
+    console.log(this.data);
+    this.getComments();
+  }
+
+  getComments() {
+    this.http.getComments(`getComments.php?id=${this.data['postid']}`)
+      .subscribe((res) => console.warn(res));
+  }
+
+
 
 }
