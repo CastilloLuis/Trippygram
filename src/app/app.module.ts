@@ -21,11 +21,15 @@ import { CommentsListComponent } from '../components/comments/comments-list/comm
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { HttpProvider } from '../providers/http/http';
-import { ReactiveFormsModule } from "@angular/forms";
-import { CameraProvider } from '../providers/camera/camera';
-import { TokenProvider } from '../providers/token/token';
 
+import { UserProvider } from '../providers/http/user/user';
+import { AuthProvider } from '../providers/http/auth/auth';
+import { PostProvider } from '../providers/http/post/post';
+import { TokenProvider } from '../providers/token/token';
+import { CameraProvider } from '../providers/camera/camera';
+import { NativeStorage } from '@ionic-native/native-storage';
+
+import { ReactiveFormsModule } from "@angular/forms";
 import { AgmCoreModule } from '@agm/core';
 import { DateFnsModule } from 'ngx-date-fns';
 
@@ -77,7 +81,9 @@ import { DateFnsModule } from 'ngx-date-fns';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    HttpProvider,
+    UserProvider,
+    AuthProvider,
+    PostProvider,
     HttpClientModule,
     CameraProvider,
     TokenProvider

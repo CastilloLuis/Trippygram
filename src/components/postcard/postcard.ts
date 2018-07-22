@@ -18,20 +18,21 @@ export class PostcardComponent {
   text: string;
   avatar: string = '';
   date: any;
-  id: any;
+  comment_info = {};
+
   constructor(private http: HttpProvider, private ref: ElementRef, private tokenProvider: TokenProvider,
               private launchNavigator: LaunchNavigator) {
     console.log('Hello PostcardComponent Component');
-    this.text = 'Hello World';
+   // this.text = 'Hello World';
     this.local = `${tokenProvider.serverIP()}/`;
   }
 
   ngAfterViewInit() {
-    this.id = this.loggedUser['userid'];
     let data = {
       post_id: this.postData['post_id'],
       user_id: this.loggedUser['userid']
     }
+    //console.log(data)
     //console.log((this.ref.nativeElement.querySelectorAll('.hello') as HTMLButtonElement));
     this.http.fetch(null, 'GET', `verifyLikes.php?user_id=${data.user_id}&post_id=${data.post_id}`)
       .subscribe((res) => {
@@ -47,6 +48,8 @@ export class PostcardComponent {
   ngOnChanges() {
     this.avatar = `${this.local}${(((this.postData['avatar']).split('trippygram/'))[1])}`;
     this.date = this.newDate((((this.postData['created_at']).split(' ')[0]).split('-')));
+    this.comment_info['postid'] = this.postData['post_id'];
+    this.comment_info['userid'] = 1;
   }
 
   newDate(d) {
@@ -62,6 +65,7 @@ export class PostcardComponent {
       post_id: postID,
       user_id: this.loggedUser['userid']
     }
+    console.log(data)
     console.log(postID);
     this.http.fetch(null, 'GET', `like.php?user_id=${data.user_id}&post_id=${data.post_id}`)
       .subscribe((res) => {
@@ -79,7 +83,7 @@ export class PostcardComponent {
         success => console.log('Launched navigator'),
         error => console.log('Error launching navigator', error)
       );    
-  }
+  } 
 
   httpStatus(caseType, id) {
     switch(caseType.status) {

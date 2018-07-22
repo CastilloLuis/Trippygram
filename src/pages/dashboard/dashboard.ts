@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { UserProvider } from '../../providers/http/user/user';
+import { HttpProvider } from '../../providers/http/http';
 import { TokenProvider } from '../../providers/token/token';
 import { NativeStorage } from '@ionic-native/native-storage';
 
@@ -8,7 +8,7 @@ import { NativeStorage } from '@ionic-native/native-storage';
 @Component({
   selector: 'page-dashboard',
   templateUrl: 'dashboard.html',
-  providers: [NativeStorage, TokenProvider, UserProvider]
+  providers: [NativeStorage, TokenProvider, HttpProvider]
 })
 export class DashboardPage {
 
@@ -17,11 +17,12 @@ export class DashboardPage {
   loggeduser: Object = <any>{};
   loaded: boolean = false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private http: UserProvider,
+  constructor(public navCtrl: NavController, public navParams: NavParams, private http: HttpProvider,
               private nativeSto: NativeStorage, private userToken: TokenProvider) {
                 userToken.userToken()
                 .then((data) => this.loggeduser = data)
                 .catch((err) => console.log(err))
+
   }
 
   ionViewWillEnter() {
@@ -35,7 +36,7 @@ export class DashboardPage {
   }
   
   showDashboard() {
-    this.http.userDashboard(`home.php?id=${1}`)//this.loggeduser['userid']
+    this.http.fetch(null, 'GET', `home.php?id=${1}`) //this.loggeduser['userid']
       .subscribe(
         (res) =>  {
           if(res.status === 200) {

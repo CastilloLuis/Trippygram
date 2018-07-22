@@ -21,7 +21,7 @@ export class TokenProvider {
   }
 
   serverIP() {
-    return 'http://192.168.1.3:80/trippygram';
+    return 'http://192.168.43.246:80/trippygram';
   }
 
 }

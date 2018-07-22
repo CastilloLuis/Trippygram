@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { Camera } from '@ionic-native/camera';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
-import { HttpProvider } from '../../providers/http/http';
+import { UserProvider } from '../../providers/http/user/user';
 import { TokenProvider } from '../../providers/token/token';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { CameraProvider } from '../../providers/camera/camera';
@@ -17,7 +17,7 @@ import { DashboardPage } from '../dashboard/dashboard';
     Camera,
     FileTransfer,
     FileTransferObject,
-    HttpProvider,
+    UserProvider,
     NativeStorage,
     CameraProvider,
     TokenProvider,

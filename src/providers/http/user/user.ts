@@ -9,7 +9,7 @@ export class UserProvider {
   svhost: string = '';
 
   constructor(public http: HttpClient, private TokenProvider: TokenProvider) {
-    console.log('Hello HttpProvider Provider');
+    console.log('Hello UserProvider Provider');
     this.svhost = `${this.TokenProvider.serverIP()}/api/api`;
   }
   

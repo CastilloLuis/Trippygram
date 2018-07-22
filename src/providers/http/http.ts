@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 import { TokenProvider } from '../token/token';
 
-@Injectable()
+@Injectable() 
 export class HttpProvider {
   
   svhost: string = '';

@@ -1,4 +1,4 @@
-<ion-card>
+<ion-card no-padding>
 
   <ion-item>
     <ion-avatar item-start>
@@ -15,7 +15,7 @@
 
   <img src="{{local}}{{postData.post_filename}}" alt="" style="width: 100%">
 
-  <ion-card-content>
+  <ion-card-content> 
     <p>{{postData.post_caption}}</p>
     <p align="right" style="color: gray;">{{date}}</p>
   </ion-card-content>
@@ -39,5 +39,5 @@
       </button>
     </ion-col>
   </ion-row>
-  <comments [userid]="loggedUser"></comments>
+  <comments [userdata]="comment_info"></comments> <!--loggedUser['userid']-->
 </ion-card>
