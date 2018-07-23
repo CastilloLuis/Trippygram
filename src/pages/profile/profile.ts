@@ -33,23 +33,27 @@ export class ProfilePage {
               private viewCtrl: ViewController) {
                 this.posts = "userPosts";
                 userToken.userToken()
-                  .then((data) => this.loggeduser = data)
+                  .then((data) => {
+                    this.loggeduser = data;
+                      this.local = `${ENV.BASE_URL}/`;
+                      console.warn((navParams.get('visit')));
+                      if(navParams.get('visit')) {
+                        this.searchid = navParams.get('id');
+                        this.visit = true;
+                        this.dataFollow['followerid'] = this.loggeduser['userid'];
+                        this.dataFollow['followedid'] = parseInt(this.searchid);
+                      } else {
+                        alert(JSON.stringify(this.loggeduser['userid']));
+                        alert(JSON.stringify(this.loggeduser));
+                        this.searchid = this.loggeduser['userid'];
+                      }                  
+                  })
                   .catch((err) => console.log(err))
-                  this.local = `${ENV.BASE_URL}/`;
-                  console.warn((navParams.get('visit')));
-                  if(navParams.get('visit')) {
-                    this.searchid = navParams.get('id');
-                    this.visit = true;
-                    this.dataFollow['followerid'] = this.loggeduser['userid'];
-                    this.dataFollow['followedid'] = parseInt(this.searchid);
-                  } else {
-                    this.searchid = this.loggeduser['userid'];
-                  }
                 //this.loggeduser = userToken.userToken();
   }
 
   ionViewWillEnter() {
-    console.log(this.searchid);
+    alert(JSON.stringify(this.searchid));
     this.http.userProfile(`profile.php?user_id=${this.searchid}`)
       .subscribe((res) => {
         console.log(res)

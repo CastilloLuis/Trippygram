@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, Tabs } from 'ionic-angular';
 import { Camera } from '@ionic-native/camera';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { UserProvider } from '../../providers/http/user/user';
@@ -66,6 +66,7 @@ export class UploadPage {
   submitForm() {
     const loader = this.showLoader();
     loader.present();
+    var t: Tabs = this.navCtrl.parent;
     let json = {
       userid: this.loggeduser['userid'],
       caption: this.caption,
@@ -81,8 +82,35 @@ export class UploadPage {
           // alert(JSON.stringify(json));
           this.mediaHandler.upload(json, true, 'upload.php');
           loader.dismiss();
-          loader.onDidDismiss(() => this.navCtrl.setRoot(this.dashboard));
+          this.caption = '';
+          this.ht = '';
+          this.tagged = '';
+          this.path = '';
+          this.checkedLocation = false;
+          this.lat = null;
+          this.long = null; 
+          loader.onDidDismiss(() => t.select(0));
         })
+        .catch((err) => {
+          loader.dismiss()
+          alert('error')
+          alert(JSON.stringify(err.message))
+        })
+    } else {
+      json['lat'] = 0;
+      json['long'] = 0;
+      // alert(this.checkedLocation);
+      // alert(JSON.stringify(json));
+      this.mediaHandler.upload(json, true, 'upload.php');
+      loader.dismiss();
+      this.caption = '';
+      this.ht = '';
+      this.tagged = '';
+      this.path = '';
+      this.checkedLocation = false;
+      this.lat = null;
+      this.long = null;       
+      loader.onDidDismiss(() => t.select(0));
     }
   }
 
