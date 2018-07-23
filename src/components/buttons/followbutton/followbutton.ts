@@ -16,7 +16,7 @@ export class FollowbuttonComponent {
   }
 
   ngAfterViewInit() {
-    console.log(this.dataFollow);
+    // console.log(this.dataFollow);
     this.checkFollow(this.dataFollow);
   }
 
@@ -29,9 +29,9 @@ export class FollowbuttonComponent {
   }
 
   followAction() {
-    console.log(this.dataFollow)
+    // console.log(this.dataFollow)
     this.http.setFollow('follow.php', this.dataFollow)
-      .subscribe((res) => this.httpStatus(res.status, 'follow-btn'));
+      .subscribe((res) => this.httpStatus(res, 'follow-btn'));
   }
 
   httpStatus(caseType, id) {
@@ -43,10 +43,12 @@ export class FollowbuttonComponent {
         break;
       case 207:
         (document.getElementById(id) as HTMLButtonElement).style.backgroundColor = 'white';
-        console.log('ya le haz dado like wey... dislike x feo');
+        (document.getElementById(id) as HTMLButtonElement).style.color = 'black';
+        console.log('already followed. UNFOLLOW THIS USER');
         break;
       case 400:
         (document.getElementById(id) as HTMLButtonElement).style.color = 'white';
+        (document.getElementById(id) as HTMLButtonElement).style.color = 'black';
         console.log('errorrrrr');
         break;
     }
