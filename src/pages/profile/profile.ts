@@ -40,10 +40,10 @@ export class ProfilePage {
                   if(navParams.get('visit')) {
                     this.searchid = navParams.get('id');
                     this.visit = true;
-                    this.dataFollow['followerid'] = 1;
+                    this.dataFollow['followerid'] = this.loggeduser['userid'];
                     this.dataFollow['followedid'] = parseInt(this.searchid);
                   } else {
-                    this.searchid = 1;
+                    this.searchid = this.loggeduser['userid'];
                   }
                 //this.loggeduser = userToken.userToken();
   }

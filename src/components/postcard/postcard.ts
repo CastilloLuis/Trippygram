@@ -6,6 +6,7 @@ import { ModalController } from 'ionic-angular';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { PostProvider } from '../../providers/http/post/post';
 import { environment as ENV } from '../../environments/enviroment';
+import { ProfilePage } from '../../pages/profile/profile';
 
 @Component({
   selector: 'postcard',
@@ -22,6 +23,8 @@ export class PostcardComponent {
   date: any;
   comment_info = {};
   listPage = ListPage;
+  profilePage = ProfilePage;
+
   constructor(private http: PostProvider, private ref: ElementRef, private launchNavigator: LaunchNavigator, 
               private modalCtrl: ModalController, private nativeSto: NativeStorage) {
     console.log('Hello PostcardComponent Component');
@@ -93,6 +96,10 @@ export class PostcardComponent {
         error => console.log('Error launching navigator', error)
       );    
   } 
+
+  goToProfile(id: any) {
+    (this.modalCtrl.create(this.profilePage, {visit: true, id: id})).present();
+  }
 
   httpStatus(caseType, id) {
     switch(caseType.status) {

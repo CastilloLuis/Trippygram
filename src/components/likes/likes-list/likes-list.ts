@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { PostProvider } from '../../../providers/http/post/post';
 import { distanceInWords } from 'date-fns';
+import { ModalController } from 'ionic-angular';
+import { ProfilePage } from '../../../pages/profile/profile';
 
 @Component({
   selector: 'likes-list',
@@ -10,8 +12,9 @@ export class LikesListComponent {
 
   @Input() data: Object = {};
   likes: Array<any> = [];
-
-  constructor(private http: PostProvider) {
+  profilePage = ProfilePage;
+  
+  constructor(private http: PostProvider, private modalCtrl: ModalController) {
     console.log('Hello CommentsListComponent Component');
   }
 
@@ -28,4 +31,7 @@ export class LikesListComponent {
       });
   }
 
+  goToProfile(id: any) {
+    (this.modalCtrl.create(this.profilePage, {visit: true, id: id})).present();
+  }
 }

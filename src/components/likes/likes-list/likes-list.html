@@ -1,5 +1,5 @@
 <ion-list>
-  <ion-item *ngFor="let l of likes">
+  <ion-item *ngFor="let l of likes" (click)="goToProfile(l.id_user)">
     <ion-avatar item-start>
       <img src="https://ionicframework.com/dist/preview-app/www/assets/img/avatar-ts-woody.png">
     </ion-avatar>
@@ -8,7 +8,7 @@
       <span right>{{l.created_at}}</span>
     </h2>
     <ion-avatar item-end>
-      <followbutton></followbutton>
+      <!--<followbutton></followbutton>-->
     </ion-avatar>
   </ion-item>
 </ion-list>
