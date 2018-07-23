@@ -20,6 +20,7 @@ import { PostcardComponent } from '../components/postcard/postcard';
 import { CommentsComponent } from '../components/comments/box/comments';
 import { CommentsListComponent } from '../components/comments/comments-list/comments-list';
 import { LikesListComponent } from '../components/likes/likes-list/likes-list';
+import { FollowbuttonComponent } from '../components/buttons/followbutton/followbutton';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -29,11 +30,11 @@ import { AuthProvider } from '../providers/http/auth/auth';
 import { PostProvider } from '../providers/http/post/post';
 import { TokenProvider } from '../providers/token/token';
 import { CameraProvider } from '../providers/camera/camera';
-import { NativeStorage } from '@ionic-native/native-storage';
 
 import { ReactiveFormsModule } from "@angular/forms";
 import { AgmCoreModule } from '@agm/core';
 import { DateFnsModule } from 'ngx-date-fns';
+
 
 
 
@@ -56,7 +57,8 @@ import { DateFnsModule } from 'ngx-date-fns';
     PostcardComponent ,
     CommentsComponent,
     CommentsListComponent,
-    LikesListComponent
+    LikesListComponent,
+    FollowbuttonComponent
   ],
   imports: [
     BrowserModule,

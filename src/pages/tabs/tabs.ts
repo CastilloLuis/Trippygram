@@ -16,6 +16,7 @@ export class TabsPage {
   tab3Root = UploadPage;
   tab4Root = ActivityPage;
   tab5Root = ProfilePage;
+  data = { visit: false }
 
   constructor() {
 

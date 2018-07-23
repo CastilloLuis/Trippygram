@@ -25,12 +25,6 @@ export class LikesListComponent {
       .subscribe((res) => {
         console.log(res)
         this.likes = res.data;
-        /*res.data.map((c) => c.created_at = this.newDate(
-          (((c['created_at']).split(' ')[0]).split('-')),
-          (((c['created_at']).split(' ')[1]).split(':'))
-        ));
-        console.log(res.data)
-        this.likes = res.data;*/
       });
   }
 

@@ -81,8 +81,7 @@ export class PostcardComponent {
     console.warn(id);
     let data = {postid: id};
     ((likelist) ? data['likelist'] = true : data['likelist'] = false);
-    let modal = this.modalCtrl.create(this.listPage, {data: data});
-    modal.present()
+    (this.modalCtrl.create(this.listPage, {data: data})).present()
   }
 
   getMap(lat, long) {

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, ViewController } from 'ionic-angular';
 import { EditProfilePage } from '../edit-profile/edit-profile';
 import { UserProvider } from '../../providers/http/user/user';
 import { TokenProvider } from '../../providers/token/token';
@@ -24,19 +24,33 @@ export class ProfilePage {
   loggeduser: Object = <any>{};
   posts = '';
   local = '';
+  visit: boolean = false;
+  searchid: any;
+  dataFollow: Object = <any>{};
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private modalCtrl: ModalController, private http: UserProvider, private nativeSto: NativeStorage, private userToken: TokenProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private modalCtrl: ModalController, 
+              private http: UserProvider, private nativeSto: NativeStorage, private userToken: TokenProvider,
+              private viewCtrl: ViewController) {
                 this.posts = "userPosts";
                 userToken.userToken()
                   .then((data) => this.loggeduser = data)
                   .catch((err) => console.log(err))
                   this.local = `${ENV.BASE_URL}/`;
+                  console.warn((navParams.get('visit')));
+                  if(navParams.get('visit')) {
+                    this.searchid = navParams.get('id');
+                    this.visit = true;
+                    this.dataFollow['followerid'] = 1;
+                    this.dataFollow['followedid'] = parseInt(this.searchid);
+                  } else {
+                    this.searchid = 1;
+                  }
                 //this.loggeduser = userToken.userToken();
   }
 
   ionViewWillEnter() {
-    // alert('userdatashit' + this.loggeduser);
-    this.http.userProfile(`profile.php?user_id=${this.loggeduser['userid']}`)
+    console.log(this.searchid);
+    this.http.userProfile(`profile.php?user_id=${this.searchid}`)
       .subscribe((res) => {
         console.log(res)
         if(res.status === 200) {
@@ -68,7 +82,7 @@ export class ProfilePage {
   }
 
   getTaggedPosts() {
-    this.http.taggedPosts(`mentions.php?userid=${this.loggeduser['userid']}`)
+    this.http.taggedPosts(`mentions.php?userid=${this.searchid}`)
       .subscribe((res) => ((res.status === 200) ? res.data.map(r => this.tagged_posts.push(r)) : false));
   }
 
@@ -77,14 +91,18 @@ export class ProfilePage {
     modal.present();
   }
 
-  logOut() {
-    this.nativeSto.clear()
-      .then(() => {
-        alert('Logged out');
-        // this.navCtrl.setRoot(HomePage);
-        this.navCtrl.parent.parent.setRoot(HomePage)
-      })
-      .catch(() => alert('Error while logout action...'))
+  closeAction(visit: boolean) {
+    if(visit) {
+      this.viewCtrl.dismiss();
+    } else {
+      this.nativeSto.clear()
+        .then(() => {
+          alert('Logged out');
+          // this.navCtrl.setRoot(HomePage);
+          this.navCtrl.parent.parent.setRoot(HomePage)
+        })
+        .catch(() => alert('Error while logout action...'))      
+    }
   }
 
 }

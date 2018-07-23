@@ -3,7 +3,7 @@
   <ion-navbar>
     <ion-title>{{profileData['username']}}</ion-title>
     <ion-buttons right>
-      <button ion-button clear (click)="logOut()">
+      <button ion-button clear (click)="closeAction(visit)">
         <ion-icon name="close" style="font-size: 25px;"></ion-icon>
       </button>
     </ion-buttons>    
@@ -15,12 +15,12 @@
 <ion-content>
   <div padding>
     <ion-row>
-      <ion-col col-3>
+      <ion-col col-4>
         <ion-avatar>
-          <img src="{{local}}{{profileData['myavatar']}}" style="width: 100%;">
+          <img src="{{local}}{{profileData['myavatar']}}" style="width: 100%;" />
         </ion-avatar>
       </ion-col>
-      <ion-col col-9>
+      <ion-col col-8>
         <ion-row text-center>
           <ion-col col-4>
             <span style="font-weight: bold;">{{profileData['postscount']}}</span>
@@ -35,10 +35,19 @@
             following
           </ion-col>
         </ion-row>
-        <ion-row>
-          <button ion-button color="light" outline style="width: 100%; color: black" (click)="editProfile()">
-            Edit your profile
-          </button>
+        <ion-row *ngIf="!visit">
+          <button 
+            ion-button 
+            color="light" 
+            outline 
+            style="width: 100%; color: black" 
+            (click)="editProfile()" 
+          >
+              Edit your profile
+          </button>       
+        </ion-row>
+        <ion-row *ngIf="visit">
+            <followbutton [dataFollow]="dataFollow"></followbutton>   
         </ion-row>
       </ion-col>
     </ion-row>
@@ -65,7 +74,7 @@
         <ion-segment-button value="taggedPosts">
           <ion-icon name="contacts"></ion-icon>
         </ion-segment-button>
-        <ion-segment-button value="likes">
+        <ion-segment-button value="likes" *ngIf="!visit">
           <ion-icon name="heart"></ion-icon>
         </ion-segment-button>
       </ion-segment>

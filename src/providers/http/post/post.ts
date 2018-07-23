@@ -33,6 +33,11 @@ export class PostProvider {
       .map((res: any) => res);        
   }
 
+  verifyFollow = (url, data) => {
+    return this.http.post(`${this.svhost}/${url}`, data)
+      .map((res: any) => res);        
+  }
+
   getComments = (url) => {
     return this.http.get(`${this.svhost}/${url}`)
       .map((res: any) => res);            
@@ -41,6 +46,11 @@ export class PostProvider {
   getLikes = (url) => {
     return this.http.get(`${this.svhost}/${url}`)
       .map((res: any) => res);          
+  }
+
+  setFollow = (url, data) => {
+    return this.http.post(`${this.svhost}/${url}`, data)
+      .map((res: any) => res);      
   }
 
 }

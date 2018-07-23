@@ -43,14 +43,21 @@
 
   <ion-list>
 
-    <button ion-item full *ngFor="let r of searchResults" padding>
-      <span *ngIf="!ht">
-        @{{r.username}}
-      </span>
-      <span *ngIf="ht">
-        Post Caption: {{r.post_caption}}
-      </span>
-    </button>
+    <ion-item *ngIf="!ht">
+      <button ion-item full *ngFor="let r of searchResults" padding (click)="goToProfile(r.id_user)">
+        <span>
+          @{{r.username}}
+        </span>
+      </button>
+    </ion-item>
+
+    <ion-item *ngIf="ht">
+      <button ion-item full *ngFor="let r of searchResults" padding>
+        <span>
+          Post Caption: {{r.post_caption}}
+        </span>
+      </button>
+    </ion-item>
 
   </ion-list>
 </ion-content>

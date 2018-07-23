@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { TokenProvider } from '../../providers/token/token';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { UserProvider } from '../../providers/http/user/user';
+import { ProfilePage } from '../profile/profile';
 
 @IonicPage()
 @Component({
@@ -15,8 +16,10 @@ export class SearchPage {
   keyword = '';
   searchResults = [];
   ht = false;
-
-  constructor(public navCtrl: NavController, public navParams: NavParams, private http: UserProvider) {
+  profilePage = ProfilePage;
+  
+  constructor(public navCtrl: NavController, public navParams: NavParams, private http: UserProvider,
+              private modalCtrl: ModalController) {
   }
 
   ionViewDidLoad() {
@@ -45,9 +48,16 @@ export class SearchPage {
         data['ht'] = false;
         // console.log(data)
         this.http.searchAction('search.php', data)
-          .subscribe((res) => res.map((r) => this.searchResults.push(r)));
+          .subscribe((res) => res.map((r) => {console.log(r);this.searchResults.push(r)}));
+          console.log(this.searchResults)
         break;
     }
+  }
+
+  goToProfile(id) {
+    console.log(id);
+    (this.modalCtrl.create(this.profilePage, {visit: true, id: id})).present();
+
   }
 
 }
