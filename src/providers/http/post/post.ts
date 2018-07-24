@@ -53,4 +53,9 @@ export class PostProvider {
       .map((res: any) => res);      
   }
 
+  deleteComment = (url, data) => {
+    return this.http.post(`${this.svhost}/${url}`, data)
+      .map((res: any) => res);      
+  }
+
 }

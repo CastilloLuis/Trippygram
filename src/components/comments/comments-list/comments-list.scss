@@ -1,3 +1,10 @@
 comments-list {
 
 }
+
+.deleteToast {
+  >div {
+    background-color: red !important;
+    color: white;
+  }
+}

@@ -21,6 +21,7 @@ import { CommentsComponent } from '../components/comments/box/comments';
 import { CommentsListComponent } from '../components/comments/comments-list/comments-list';
 import { LikesListComponent } from '../components/likes/likes-list/likes-list';
 import { FollowbuttonComponent } from '../components/buttons/followbutton/followbutton';
+import { DeletebuttonComponent } from '../components/buttons/deletebutton/deletebutton';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -34,6 +35,7 @@ import { CameraProvider } from '../providers/camera/camera';
 import { ReactiveFormsModule } from "@angular/forms";
 import { AgmCoreModule } from '@agm/core';
 import { DateFnsModule } from 'ngx-date-fns';
+
 
 
 
@@ -58,7 +60,8 @@ import { DateFnsModule } from 'ngx-date-fns';
     CommentsComponent,
     CommentsListComponent,
     LikesListComponent,
-    FollowbuttonComponent
+    FollowbuttonComponent,
+    DeletebuttonComponent
   ],
   imports: [
     BrowserModule,

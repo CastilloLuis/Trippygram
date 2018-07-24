@@ -54,7 +54,7 @@ export class PostcardComponent {
     this.avatar = `${this.local}${(((this.postData['avatar']).split('trippygram/'))[1])}`;
     this.date = this.newDate((((this.postData['created_at']).split(' ')[0]).split('-')));
     this.comment_info['postid'] = this.postData['post_id'];
-    this.comment_info['userid'] = 1;
+    this.comment_info['userid'] = 2;
   }
 
   newDate(d) {
@@ -82,7 +82,8 @@ export class PostcardComponent {
 
   showList(id, likelist) {
     console.warn(id);
-    let data = {postid: id};
+    let data = {postid: id, loggeduser: 2};
+    console.log(data);
     ((likelist) ? data['likelist'] = true : data['likelist'] = false);
     (this.modalCtrl.create(this.listPage, {data: data})).present()
   }

@@ -21,8 +21,7 @@ export class DashboardPage {
               private nativeSto: NativeStorage, private userToken: TokenProvider) {
                 userToken.userToken()
                 .then((data) => this.loggeduser = data)
-                .catch((err) => console.log(err))
-
+                .catch((err) => console.log(err)) 
   }
 
   ionViewWillEnter() {
@@ -36,7 +35,7 @@ export class DashboardPage {
   }
   
   showDashboard() {
-    this.http.userDashboard(`home.php?id=${this.loggeduser['userid']}`)
+    this.http.userDashboard(`home.php?id=${2}`) //this.loggeduser['userid']
       .subscribe(
         (res) =>  {
           if(res.status === 200) {
