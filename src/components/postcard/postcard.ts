@@ -24,7 +24,8 @@ export class PostcardComponent {
   comment_info = {};
   listPage = ListPage;
   profilePage = ProfilePage;
-
+  commentpreview = {};
+  
   constructor(private http: PostProvider, private ref: ElementRef, private launchNavigator: LaunchNavigator, 
               private modalCtrl: ModalController, private nativeSto: NativeStorage) {
     console.log('Hello PostcardComponent Component');
@@ -33,19 +34,20 @@ export class PostcardComponent {
   }
 
   ngAfterViewInit() {
+    console.log(this.postData)
     let data = {
-      post_id: this.postData['post_id'],
-      user_id: this.loggedUser['userid']
+      postid: this.postData['post_id'],
+      loggeduser: this.loggedUser['userid']
     }
     //console.log(data)
     //console.log((this.ref.nativeElement.querySelectorAll('.hello') as HTMLButtonElement));
-    this.http.getLikes(`verifyLikes.php?user_id=${data.user_id}&post_id=${data.post_id}`)
+    this.http.getLikes(`verifyLikes.php?user_id=${data.loggeduser}&post_id=${data.postid}`)
       .subscribe((res) => {
         if(res.status === 200) {
-          (document.getElementById(data.post_id) as HTMLButtonElement).style.color = 'red';
+          (document.getElementById(data.postid) as HTMLButtonElement).style.color = 'red';
           console.log('siuuuuuuu');
         } else {
-          (document.getElementById(data.post_id) as HTMLButtonElement).style.color = 'white';
+          (document.getElementById(data.postid) as HTMLButtonElement).style.color = 'white';
         }
       });
   }
@@ -54,7 +56,13 @@ export class PostcardComponent {
     this.avatar = `${this.local}${(((this.postData['avatar']).split('trippygram/'))[1])}`;
     this.date = this.newDate((((this.postData['created_at']).split(' ')[0]).split('-')));
     this.comment_info['postid'] = this.postData['post_id'];
-    this.comment_info['userid'] = 2;
+    this.comment_info['userid'] = this.loggedUser['userid'];
+
+    this.commentpreview = {
+      postid: this.postData['post_id'],
+      loggeduser: this.loggedUser['userid'],
+      limit: true
+    }    
   }
 
   newDate(d) {
@@ -82,7 +90,7 @@ export class PostcardComponent {
 
   showList(id, likelist) {
     console.warn(id);
-    let data = {postid: id, loggeduser: 2};
+    let data = {postid: id, loggeduser: this.loggedUser['userid'], limit: false, postUserId: this.postData['post_id']};
     console.log(data);
     ((likelist) ? data['likelist'] = true : data['likelist'] = false);
     (this.modalCtrl.create(this.listPage, {data: data})).present()

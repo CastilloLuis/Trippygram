@@ -39,5 +39,15 @@
       </button>
     </ion-col>
   </ion-row>
+
+  <previewcomments [data]="commentpreview"></previewcomments>
+
+  <button ion-button clear full (click)="showList(postData.post_id, false)">
+    <p align="center" style="color: gray;">See more...</p>
+  </button>
+
+  <hr/>
+
   <comments [userdata]="comment_info"></comments> <!--loggedUser['userid']-->
+  
 </ion-card>

@@ -13,6 +13,7 @@ export class ListPage {
 
   data: Object = {};
   likelist: boolean = false;
+  isEmpty: boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController) {
     this.data = this.navParams.get('data');

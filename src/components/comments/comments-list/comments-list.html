@@ -1,3 +1,7 @@
+<div align="center">
+  <p *ngIf="isEmpty">Nobody has commented this post...</p>
+</div>
+
 <ion-list>
   <ion-item-sliding #item *ngFor="let c of comments">
     <ion-item>

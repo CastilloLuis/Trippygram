@@ -21,7 +21,7 @@ export class CommentsComponent {
     // alert('userid '+id);
     let json = {
       comment_text: this.comment_text,
-      id_user: userdata.userid,
+      id_user: userdata.userid, //userdata.userid
       post_id: userdata.postid
     }
     console.warn(json)

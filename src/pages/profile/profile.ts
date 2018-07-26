@@ -32,6 +32,9 @@ export class ProfilePage {
               private http: UserProvider, private nativeSto: NativeStorage, private userToken: TokenProvider,
               private viewCtrl: ViewController) {
                 this.posts = "userPosts";
+                /* testing with this two
+                this.local = `${ENV.BASE_URL}/`;
+                this.loggeduser = {userid: 1, username: 'luisito'}; */
                 userToken.userToken()
                   .then((data) => {
                     this.loggeduser = data;
@@ -54,7 +57,7 @@ export class ProfilePage {
 
   ionViewWillEnter() {
     alert(JSON.stringify(this.searchid));
-    this.http.userProfile(`profile.php?user_id=${this.searchid}`)
+    this.http.userProfile(`profile.php?user_id=${this.searchid}`) //this.searchid
       .subscribe((res) => {
         console.log(res)
         if(res.status === 200) {
@@ -86,7 +89,7 @@ export class ProfilePage {
   }
 
   getTaggedPosts() {
-    this.http.taggedPosts(`mentions.php?userid=${this.searchid}`)
+    this.http.taggedPosts(`mentions.php?userid=${this.searchid}`) //this.searchid
       .subscribe((res) => ((res.status === 200) ? res.data.map(r => this.tagged_posts.push(r)) : false));
   }
 

@@ -5,13 +5,15 @@ import { CommentsListComponent } from './comments/comments-list/comments-list';
 import { LikesListComponent } from './likes/likes-list/likes-list';
 import { FollowbuttonComponent } from './buttons/followbutton/followbutton';
 import { DeletebuttonComponent } from './buttons/deletebutton/deletebutton';
+import { PreviewcommentsComponent } from './comments/previewcomments/previewcomments';
 @NgModule({
 	declarations: [PostcardComponent,
     CommentsComponent,
     CommentsListComponent,
     LikesListComponent,
     FollowbuttonComponent,
-    DeletebuttonComponent
+    DeletebuttonComponent,
+    PreviewcommentsComponent
     ],
 	imports: [],
 	exports: [PostcardComponent,
@@ -19,7 +21,8 @@ import { DeletebuttonComponent } from './buttons/deletebutton/deletebutton';
     CommentsListComponent,
     LikesListComponent,
     FollowbuttonComponent,
-    DeletebuttonComponent
+    DeletebuttonComponent,
+    PreviewcommentsComponent
     ]
 }) 
 export class ComponentsModule {}

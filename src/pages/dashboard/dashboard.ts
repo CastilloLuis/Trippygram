@@ -30,16 +30,18 @@ export class DashboardPage {
     this.showDashboard();
   }
 
-  ionViewWillLeave(){
+  ionViewWillLeave() {
     this.dashboardPosts = [];
   }
   
   showDashboard() {
-    this.http.userDashboard(`home.php?id=${2}`) //this.loggeduser['userid']
+    this.http.userDashboard(`home.php?id=${this.loggeduser['userid']}`) // this.loggeduser['userid']
       .subscribe(
         (res) =>  {
           if(res.status === 200) {
             res.data.map(p => this.dashboardPosts.push(p));
+            console.log(this.dashboardPosts);
+            (this.dashboardPosts.sort((d1, d2) => new Date(d1.created_at).getTime() - new Date(d2.created_at).getTime())).reverse();
             this.loaded = true;
             // alert(JSON.stringify(this.dashboardPosts))
             console.log(this.dashboardPosts)
@@ -52,7 +54,8 @@ export class DashboardPage {
 
   spinnerStyle() {
     let style = {
-      'display': this.loaded ? 'none' : 'block'
+      'display': this.loaded ? 'none' : 'block',
+      'margin-top': '50px'
     }
     return style;
   }

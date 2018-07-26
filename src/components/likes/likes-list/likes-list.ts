@@ -13,6 +13,7 @@ export class LikesListComponent {
   @Input() data: Object = {};
   likes: Array<any> = [];
   profilePage = ProfilePage;
+  isEmpty: boolean = false;
   
   constructor(private http: PostProvider, private modalCtrl: ModalController) {
     console.log('Hello CommentsListComponent Component');
@@ -26,8 +27,8 @@ export class LikesListComponent {
   getLikes() {
     this.http.getLikes(`getLikes.php?id=${this.data['postid']}`)
       .subscribe((res) => {
-        console.log(res)
-        this.likes = res.data;
+        console.log(res);
+        ((res.status === 200 && res.data.length != 0) ? this.likes = res.data : this.isEmpty = true);
       });
   }
 

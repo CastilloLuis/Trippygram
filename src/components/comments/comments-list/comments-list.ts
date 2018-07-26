@@ -12,7 +12,9 @@ export class CommentsListComponent {
 
   @Input() data: Object = {};
   comments: Array<any> = [];
-
+  url: string = '';
+  isEmpty: boolean = false;
+  
   constructor(private http: PostProvider, private toastCtrl: ToastController) {
     console.log('Hello CommentsListComponent Component');
   }
@@ -23,17 +25,24 @@ export class CommentsListComponent {
   }
 
   getComments() {
-    this.http.getComments(`getComments.php?id=${this.data['postid']}`)
+    this.http.getComments(`getComments.php?id=${this.data['postid']}&limit=${this.data['limit']}`)
       .subscribe((res) => {
         console.log(res.data)
-        res.data.map((c) => c.created_at = this.newDate(
-          (((c['created_at']).split(' ')[0]).split('-')),
-          (((c['created_at']).split(' ')[1]).split(':'))
-        )); 
-        console.log(res.data)
-        res.data.map(c => parseInt(c.id_user) === this.data['loggeduser'] ? c.own = true : c.own = false);
-        console.warn(res.data)
-        this.comments = res.data;
+        if(res.status === 200 && res.data.length != 0) {
+          res.data.map((c) => c.created_at = this.newDate(
+            (((c['created_at']).split(' ')[0]).split('-')),
+            (((c['created_at']).split(' ')[1]).split(':'))
+          )); 
+          console.log(res.data);
+          // res.data.map(c => (parseInt(c.id_user) === this.data['loggeduser'] || (parseInt(this.data['postUserId']) === this.data['loggeduser']))? c.own = true : c.own = false);
+          //alert("asdadasd"+this.data['loggeduser']+1);
+          res.data.map(c => parseInt(c.id_user) === parseInt(this.data['loggeduser']) ? c.own = true : c.own = false);
+          console.warn(res.data)
+          this.comments = res.data;          
+        } else {
+          this.isEmpty = true;
+        }
+
       });
   }
 
