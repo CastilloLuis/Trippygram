@@ -18,23 +18,22 @@ export class PostcardComponent {
   @Input() postData: Object = {};
   @Input() loggedUser: Object = {};
   local = '';
-  text: string;
   avatar: string = '';
   date: any;
   comment_info = {};
   listPage = ListPage;
   profilePage = ProfilePage;
   commentpreview = {};
-  
+  location: string = '';
+
   constructor(private http: PostProvider, private ref: ElementRef, private launchNavigator: LaunchNavigator, 
               private modalCtrl: ModalController, private nativeSto: NativeStorage) {
     console.log('Hello PostcardComponent Component');
-   // this.text = 'Hello World';
     this.local = `${ENV.BASE_URL}/`;
   }
 
   ngAfterViewInit() {
-    console.log(this.postData)
+    console.log(this.postData);
     let data = {
       postid: this.postData['post_id'],
       loggeduser: this.loggedUser['userid']
@@ -57,12 +56,13 @@ export class PostcardComponent {
     this.date = this.newDate((((this.postData['created_at']).split(' ')[0]).split('-')));
     this.comment_info['postid'] = this.postData['post_id'];
     this.comment_info['userid'] = this.loggedUser['userid'];
-
+    this.location = this.getLocationName(this.postData['post_latitude'], this.postData['post_longitude']);
     this.commentpreview = {
       postid: this.postData['post_id'],
       loggeduser: this.loggedUser['userid'],
       limit: true
-    }    
+    }
+    
   }
 
   newDate(d) {
@@ -105,6 +105,24 @@ export class PostcardComponent {
         error => console.log('Error launching navigator', error)
       );    
   } 
+
+  getLocationName(lat, long) {
+    if(lat === 0 || long === 0) {
+      return '';
+    } else {
+      this.http.getLocationName(lat, long)
+      .subscribe((res) => {
+        if(res.status === "INVALID_REQUEST" || res.status === "ZERO_RESULTS"){
+          this.location = '';
+        } else {
+          console.log(res)
+          let index = (res.results.length < 6 ? (res.results.length-1) : 6);
+          this.location = res.results[index].formatted_address;
+        }
+      });
+    }
+  }
+
 
   goToProfile(id: any) {
     (this.modalCtrl.create(this.profilePage, {visit: true, id: id})).present();

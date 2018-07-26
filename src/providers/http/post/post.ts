@@ -58,4 +58,9 @@ export class PostProvider {
       .map((res: any) => res);      
   }
 
+  getLocationName = (lat, long) => {
+    return this.http.get(`http://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${long}&sensor=false`)
+      .map((res: any) => res);
+  }
+
 }

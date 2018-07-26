@@ -6,6 +6,7 @@
     </ion-avatar>
     <h2>{{postData.username}}</h2>
     <p>{{postData.created_at}}</p>
+    <p>{{location}}</p>
     <ion-fab right top (click)="getMap(postData.post_latitude,postData.post_longitude)">
       <button ion-fab mini>
         <ion-icon name="pin"></ion-icon>
