@@ -55,7 +55,7 @@ export class DashboardPage {
   spinnerStyle() {
     let style = {
       'display': this.loaded ? 'none' : 'block',
-      'margin-top': '50px'
+      'margin-top': '20px'
     }
     return style;
   }

@@ -4,6 +4,7 @@ import { TokenProvider } from '../../providers/token/token';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { UserProvider } from '../../providers/http/user/user';
 import { ProfilePage } from '../profile/profile';
+import { PostPage } from '../post/post';
 
 @IonicPage()
 @Component({
@@ -17,6 +18,7 @@ export class SearchPage {
   searchResults = [];
   ht = false;
   profilePage = ProfilePage;
+  viewPost = PostPage;
   
   constructor(public navCtrl: NavController, public navParams: NavParams, private http: UserProvider,
               private modalCtrl: ModalController) {

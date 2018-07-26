@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { UserProvider } from '../../providers/http/user/user';
 import { TokenProvider } from '../../providers/token/token';
 import { NativeStorage } from '@ionic-native/native-storage';
+import { PostPage } from '../post/post';
 
 @IonicPage()
 @Component({
@@ -14,6 +15,7 @@ export class ActivityPage {
 
   mentions = [];
   loggeduser = <any>{};
+  viewPost = PostPage;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private http: UserProvider,
               private nativeSto: NativeStorage, private userToken: TokenProvider) {
@@ -23,7 +25,7 @@ export class ActivityPage {
   }
 
   ionViewWillEnter() {
-    this.http.userActivity(`mentions.php?userid=${this.loggeduser.userid}`)
+    this.http.userActivity(`mentions.php?userid=${this.loggeduser.userid}`) //this.loggeduser.userid
       .subscribe((res) => res.data.map((r) => this.mentions.push(r)));
   }
 

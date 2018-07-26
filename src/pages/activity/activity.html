@@ -17,8 +17,11 @@
   <ion-title>Activity</ion-title>
   <hr/>
   <ion-list>
-    <button ion-item
-      *ngFor="let m of mentions">
+    <button 
+      ion-item
+      *ngFor="let m of mentions"
+      [navPush]="viewPost" [navParams]="m"  
+    >
       <p><span style="font-weight: bold;">{{m.username}}</span> tagged you in: {{m.post_caption}}</p>
       <ion-avatar item-end>
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Antu_system-switch-user.svg/2000px-Antu_system-switch-user.svg.png">

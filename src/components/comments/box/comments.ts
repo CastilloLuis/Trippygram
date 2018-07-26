@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { PostProvider } from '../../../providers/http/post/post';
 import { TokenProvider } from '../../../providers/token/token';
+import { ToastController } from 'ionic-angular';
 
 @Component({
   selector: 'comments',
@@ -13,7 +14,9 @@ export class CommentsComponent {
 
   comment_text: string = '';
 
-  constructor(private tokenProvider: TokenProvider, private http: PostProvider) {
+  constructor(private tokenProvider: TokenProvider, 
+              private http: PostProvider, 
+              private toastCtrl: ToastController) {
     //console.log('Hello CommentsComponent Component');
   }
 
@@ -26,6 +29,28 @@ export class CommentsComponent {
     }
     console.warn(json)
     this.http.sendComment('comment.php', json)
-      .subscribe((res) => console.warn(res));
+      .subscribe((res) => {
+        console.warn(res)
+        if(res.status === 200) {
+          (this.successToast(true)).present();
+          this.comment_text = '';
+        } else {
+          (this.successToast(false)).present();
+        }
+      });
+  }
+
+  successToast(commented: boolean) {
+    if(commented) {
+      return this.toastCtrl.create({
+        message: 'Comment added successfully!',
+        duration: 2000
+      });
+    } else {
+      return this.toastCtrl.create({
+        message: 'An error ocurred while commeting... try again',
+        duration: 2000
+      });
+    }
   }
 }

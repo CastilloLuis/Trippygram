@@ -52,7 +52,13 @@
     </ion-item>
 
     <ion-item *ngIf="ht">
-      <button ion-item full *ngFor="let r of searchResults" padding>
+      <button 
+        ion-item 
+        full 
+        *ngFor="let r of searchResults"
+        padding
+        [navPush]="viewPost" [navParams]="r" 
+      >
         <span>
           Post Caption: {{r.post_caption}}
         </span>
