@@ -33,11 +33,12 @@ export class PostcardComponent {
   }
 
   ngAfterViewInit() {
-    console.log(this.postData);
+    console.log('HEREEEEEEEE'+JSON.stringify(this.postData));
     let data = {
       postid: this.postData['post_id'],
       loggeduser: this.loggedUser['userid']
     }
+    console.warn(this.postData)
     //console.log(data)
     //console.log((this.ref.nativeElement.querySelectorAll('.hello') as HTMLButtonElement));
     this.http.getLikes(`verifyLikes.php?user_id=${data.loggeduser}&post_id=${data.postid}`)

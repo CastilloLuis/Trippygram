@@ -24,7 +24,7 @@ import { environment as ENV } from '../../environments/enviroment';
     TokenProvider,
     Geolocation
   ]
-})
+}) 
 export class UploadPage {
 
   caption: string = '';
@@ -37,6 +37,8 @@ export class UploadPage {
   loggeduser: Object = <any>{};
   dashboard = DashboardPage;
   local = '';
+  previewurl = '';
+  uploaded: boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private mediaHandler: CameraProvider,
               private geolocation: Geolocation, private nativeSto: NativeStorage, private userToken: TokenProvider,
@@ -56,11 +58,14 @@ export class UploadPage {
     this.path = '';
     this.checkedLocation = false;
     this.lat = null;
-    this.long = null;    
+    this.long = null;
+    this.uploaded = false;
   }
 
   choosePicture() {
-    this.mediaHandler.choose();
+    this.mediaHandler.choose().then((res: any) => {this.previewurl = res; this.uploaded = true}).catch((err) => alert(err))
+    //alert(this.mediaHandler.getBase64())
+    
   }
 
   submitForm() {
@@ -89,6 +94,7 @@ export class UploadPage {
           this.checkedLocation = false;
           this.lat = null;
           this.long = null; 
+          this.uploaded = false;
           loader.onDidDismiss(() => t.select(0));
         })
         .catch((err) => {
@@ -110,6 +116,7 @@ export class UploadPage {
       this.checkedLocation = false;
       this.lat = null;
       this.long = null;       
+      this.uploaded = false;
       loader.onDidDismiss(() => t.select(0));
     }
   }

@@ -21,21 +21,24 @@ export class CameraProvider {
   }
 
   choose() {
-    const menu = this.cameraMenu.create({
-      title: 'Select your option',
-      buttons: [
-        {
-          text: 'Take picture',
-          handler: () => {
-            this.cameraOp(1)
+    return new Promise((res, rej) => {
+      const menu = this.cameraMenu.create({
+        title: 'Select your option',
+        buttons: [
+          {
+            text: 'Take picture',
+            handler: () => {
+              this.cameraOp(1).then((data) => res(data))
+            }
+          },{
+            text: 'Select picture',
+            handler: () =>this.cameraOp(0).then((data) => res(data))
           }
-        },{
-          text: 'Select picture',
-          handler: () => this.cameraOp(0)         
-        }
-      ]
-    });
-    menu.present();
+        ]
+      });
+      menu.present();
+    })
+
   }
 
   upload(form: any, isPost: boolean, url: any) {
@@ -83,16 +86,20 @@ export class CameraProvider {
       correctOrientation: true,
       sourceType:sourceType,
     }
+    return new Promise((res, rej) => {
+      this.camera.getPicture(options).then((imageData) => {
+        let base64Image = 'data:image/jpeg;base64,' + imageData;
+        this.image = base64Image;
+        res(this.image)
+        // alert(this.avatarImage);
+        // this.upload(this.avatarImage);
+      }, (err) => {
+        // Handle error
+        rej(err);
+        alert(JSON.stringify(err))
+      });
+    })
 
-    this.camera.getPicture(options).then((imageData) => {
-      let base64Image = 'data:image/jpeg;base64,' + imageData;
-      this.image = base64Image;
-      // alert(this.avatarImage);
-      // this.upload(this.avatarImage);
-    }, (err) => {
-      // Handle error
-      alert(JSON.stringify(err))
-    });
   }
 
   getBase64() {

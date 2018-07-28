@@ -6,12 +6,13 @@
 
 </ion-header>
 
-<ion-content padding>
+<ion-content padding> 
 
   <div align="center">
     <!--<button ion-button clear (click)="choosePicture">CHOOSE PICTURE</button>-->
     <ion-avatar (click)="choosePicture()">
-      <img src="{{local}}/default.jpg" style="width: 50%">
+      <img *ngIf="!uploaded" src="{{local}}/default.jpg" style="width: 50%">
+      <img *ngIf="uploaded" src="{{previewurl}}" style="width: 50%">
     </ion-avatar>
   </div>
 
