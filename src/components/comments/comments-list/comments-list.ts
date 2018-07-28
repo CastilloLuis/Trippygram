@@ -34,9 +34,9 @@ export class CommentsListComponent {
             (((c['created_at']).split(' ')[1]).split(':'))
           )); 
           console.log(res.data);
-          // res.data.map(c => (parseInt(c.id_user) === this.data['loggeduser'] || (parseInt(this.data['postUserId']) === this.data['loggeduser']))? c.own = true : c.own = false);
+          res.data.map(c => (parseInt(c.id_user) === this.data['loggeduser'] || (parseInt(this.data['postUserId']) === this.data['loggeduser']))? c.own = true : c.own = false);
           //alert("asdadasd"+this.data['loggeduser']+1);
-          res.data.map(c => parseInt(c.id_user) === parseInt(this.data['loggeduser']) ? c.own = true : c.own = false);
+          //res.data.map(c => parseInt(c.id_user) === parseInt("1") ? c.own = true : c.own = false);
           console.warn(res.data)
           this.comments = res.data;          
         } else {

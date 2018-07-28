@@ -87,10 +87,10 @@ export class PostcardComponent {
       })
     console.log(this.postData)
   }
-
+ 
   showList(id, likelist) {
     console.warn(id);
-    let data = {postid: id, loggeduser: this.loggedUser['userid'], limit: false, postUserId: this.postData['post_id']};
+    let data = {postid: id, loggeduser: this.loggedUser['userid'], limit: false, postUserId: this.postData['id_user']};
     console.log(data);
     ((likelist) ? data['likelist'] = true : data['likelist'] = false);
     (this.modalCtrl.create(this.listPage, {data: data})).present()
