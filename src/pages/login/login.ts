@@ -6,6 +6,7 @@ import { TabsPage } from '../tabs/tabs';
 import { EditProfilePage } from '../edit-profile/edit-profile';
 import { TokenProvider } from '../../providers/token/token';
 import { NativeStorage } from '@ionic-native/native-storage';
+import { RegisterPage } from '../register/register';
 
 @IonicPage()
 @Component({
@@ -16,7 +17,8 @@ import { NativeStorage } from '@ionic-native/native-storage';
 export class LoginPage {
 
   user_login = {};
-
+  registerPage = RegisterPage;
+  
   constructor(public navCtrl: NavController, public navParams: NavParams, private helpers: helpers, private alertCtrl: AlertController,
               private http: AuthProvider, private modalCtrl: ModalController, private viewCtrl: ViewController,
               private nativeSto: NativeStorage) {
@@ -56,6 +58,11 @@ export class LoginPage {
         }
       );
     }
+  }
+
+  goToPage() {
+    let modal = this.modalCtrl.create(this.registerPage);
+    modal.present();
   }
 
   closeit() {

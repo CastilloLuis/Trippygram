@@ -10,16 +10,14 @@ import { RegisterPage } from '../register/register';
 export class HomePage {
 
   loginPage = LoginPage;
-  registerPage = RegisterPage;
 
   constructor(public navCtrl: NavController, private modalCtrl: ModalController) {
-
   }
 
-  goToPage(page: any) {
-    let modal;
-    ((page === 'login') ? modal = this.modalCtrl.create(this.loginPage) : modal = this.modalCtrl.create(this.registerPage));
-    modal.present();
+  swipeEvent(e) {
+    if(e.direction == '2'){
+       (this.modalCtrl.create(this.loginPage)).present();
+    }
   }
 
 }

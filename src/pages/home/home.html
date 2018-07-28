@@ -1,13 +1,12 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>Home</ion-title>
-  </ion-navbar>
-</ion-header>
-
-<ion-content padding>
-
-  <button ion-button (click)="goToPage('login')" full>LOGIN</button>
-  <br/>
-  <button ion-button (click)="goToPage('register')" full>SIGNUP</button>
-
+<ion-content id="home-content">
+  <div (swipe)="swipeEvent($event)" style="width: 100%; height: 100%;">
+    <div text-center id="logo-div" padding>
+      <ion-icon name="bonfire" id="trippyme-logo"></ion-icon>
+      <h1>trippy<span style="font-weight: bold;">gram</span>
+      </h1>
+    </div>
+    <div text-center class="home-text">
+      <p style="color: white; margin-top: 15%; letter-spacing: 1px">Swipe to login</p>
+    </div>
+  </div>
 </ion-content>

@@ -1,3 +1,55 @@
 page-home {
 
 }
+
+#home-content {
+    background: #56CCF2;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #2F80ED, #56CCF2);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #2F80ED, #56CCF2); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+#logo-div {
+    color: white;
+    margin-top: 50%;
+}
+
+#logo-div h1 {
+    font-size: 45px;
+    font-weight: 300;
+}
+
+#trippyme-logo {
+    font-size: 60px;
+    position: absolute;
+    left: 44%;
+    top: 27%;
+}
+
+.home-buttons-wrapper {
+    margin-top: 30%;
+}
+
+.home-buttons {
+    padding: 20px 30px;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+    width: 100%
+}
+
+.home-text {
+	animation-duration: 0.8s;
+	animation-name: showText;    
+}
+
+/* ANIMATE */
+
+@keyframes showText{
+	from{
+		margin-left: 100%;
+		width: 100%;
+	}
+	to{
+		margin-left: 0%;
+		width: 100%;
+	}
+}
