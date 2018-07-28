@@ -14,4 +14,7 @@
     <ion-spinner name="crescent"></ion-spinner>
   </div>
   <postcard *ngFor="let p of dashboardPosts" [postData]="p" [loggedUser]=loggeduser></postcard>
+  <!-- <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll> -->
 </ion-content>
