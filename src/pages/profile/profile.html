@@ -26,11 +26,11 @@
             <span style="font-weight: bold;">{{profileData['postscount']}}</span>
             <br> posts
           </ion-col>
-          <ion-col col-4>
+          <ion-col col-4 (click)="showList(true, true)">
             <span style="font-weight: bold;">{{profileData['followers_count']}}</span>
             followers
           </ion-col>
-          <ion-col col-4>
+          <ion-col col-4 (click)="showList(true, false)">
             <span style="font-weight: bold;">{{profileData['following_count']}}</span>
             following
           </ion-col>

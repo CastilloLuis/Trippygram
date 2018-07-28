@@ -7,6 +7,7 @@ import { PostPage } from '../post/post';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { HomePage } from '../home/home';
 import { environment as ENV } from '../../environments/enviroment';
+import { ListPage } from '../list/list';
 
 @IonicPage()
 @Component({
@@ -27,7 +28,8 @@ export class ProfilePage {
   visit: boolean = false;
   searchid: any;
   dataFollow: Object = <any>{};
-
+  listPage = ListPage;
+  
   constructor(public navCtrl: NavController, public navParams: NavParams, private modalCtrl: ModalController, 
               private http: UserProvider, private nativeSto: NativeStorage, private userToken: TokenProvider,
               private viewCtrl: ViewController) {
@@ -46,8 +48,8 @@ export class ProfilePage {
                         this.dataFollow['followerid'] = this.loggeduser['userid'];
                         this.dataFollow['followedid'] = parseInt(this.searchid);
                       } else {
-                        alert(JSON.stringify(this.loggeduser['userid']));
-                        alert(JSON.stringify(this.loggeduser));
+                        // alert(JSON.stringify(this.loggeduser['userid']));
+                        // alert(JSON.stringify(this.loggeduser));
                         this.searchid = this.loggeduser['userid'];
                       }                  
                   })
@@ -56,7 +58,7 @@ export class ProfilePage {
   }
 
   ionViewWillEnter() {
-    alert(JSON.stringify(this.searchid));
+    // alert(JSON.stringify(this.searchid));
     this.http.userProfile(`profile.php?user_id=${this.searchid}`) //this.searchid
       .subscribe((res) => {
         console.log(res)
@@ -97,6 +99,15 @@ export class ProfilePage {
     let modal = this.modalCtrl.create(EditProfilePage, {data: this.profileData});
     modal.present();
   }
+
+  showList(followList: any, followers: any) {
+    let data = {loggeduser: this.loggeduser['userid']}; //this.loggeduser['userid']
+    console.log(data);
+    ((followList) ? data['followList'] = true : data['followList'] = false);
+    ((followers) ? data['followers'] = true : data['followers'] = false);
+    (this.modalCtrl.create(this.listPage, {data: data})).present()
+  }
+
 
   closeAction(visit: boolean) {
     if(visit) {

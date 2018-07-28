@@ -14,10 +14,12 @@ export class ListPage {
   data: Object = {};
   likelist: boolean = false;
   isEmpty: boolean = false;
+  followList: boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController) {
     this.data = this.navParams.get('data');
     this.likelist = this.data['likelist'];
+    this.followList = this.data['followList'];
     console.log(this.data)
   }
 

@@ -36,6 +36,7 @@ import { CameraProvider } from '../providers/camera/camera';
 import { ReactiveFormsModule } from "@angular/forms";
 import { AgmCoreModule } from '@agm/core';
 import { DateFnsModule } from 'ngx-date-fns';
+import { FollowlistComponent } from '../components/profile/followlist/followlist';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { DateFnsModule } from 'ngx-date-fns';
     LikesListComponent,
     FollowbuttonComponent,
     DeletebuttonComponent,
-    PreviewcommentsComponent
+    PreviewcommentsComponent,
+    FollowlistComponent
   ],
   imports: [
     BrowserModule,

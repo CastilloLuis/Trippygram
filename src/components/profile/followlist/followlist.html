@@ -1,0 +1,14 @@
+<div align="center">
+  <p *ngIf="isEmpty">No users here :'(</p>
+</div>
+
+<ion-list>
+  <ion-item *ngFor="let u of userList" (click)="goToProfile(u.id_user)">
+    <ion-avatar item-start>
+      <img src="https://ionicframework.com/dist/preview-app/www/assets/img/avatar-ts-woody.png">
+    </ion-avatar>
+    <h2>
+      @{{u.username}}
+    </h2>
+  </ion-item>
+</ion-list>

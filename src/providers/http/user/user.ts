@@ -48,4 +48,14 @@ export class UserProvider {
       .map((res: any) => res); 
   }
 
+  userFollowers = (url) => {
+    return this.http.get(`${this.svhost}/${url}`)
+      .map((res: any) => res);     
+  }
+
+  userFollowing = (url) => {
+    return this.http.get(`${this.svhost}/${url}`)
+      .map((res: any) => res);     
+  }
+
 }

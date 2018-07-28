@@ -6,6 +6,7 @@ import { LikesListComponent } from './likes/likes-list/likes-list';
 import { FollowbuttonComponent } from './buttons/followbutton/followbutton';
 import { DeletebuttonComponent } from './buttons/deletebutton/deletebutton';
 import { PreviewcommentsComponent } from './comments/previewcomments/previewcomments';
+import { FollowlistComponent } from './profile/followlist/followlist';
 @NgModule({
 	declarations: [PostcardComponent,
     CommentsComponent,
@@ -13,7 +14,8 @@ import { PreviewcommentsComponent } from './comments/previewcomments/previewcomm
     LikesListComponent,
     FollowbuttonComponent,
     DeletebuttonComponent,
-    PreviewcommentsComponent
+    PreviewcommentsComponent,
+    FollowlistComponent
     ],
 	imports: [],
 	exports: [PostcardComponent,
@@ -22,7 +24,8 @@ import { PreviewcommentsComponent } from './comments/previewcomments/previewcomm
     LikesListComponent,
     FollowbuttonComponent,
     DeletebuttonComponent,
-    PreviewcommentsComponent
+    PreviewcommentsComponent,
+    FollowlistComponent
     ]
 }) 
 export class ComponentsModule {}

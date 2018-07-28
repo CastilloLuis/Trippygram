@@ -13,6 +13,9 @@
 
 
 <ion-content no-padding>
-  <comments-list *ngIf="!likelist" [data]="data"></comments-list>
-  <likes-list *ngIf="likelist" [data]="data"></likes-list>
+  <div *ngIf="!followList">
+    <comments-list *ngIf="!likelist" [data]="data"></comments-list>
+    <likes-list *ngIf="likelist" [data]="data"></likes-list>
+  </div>
+  <followlist *ngIf="followList" [data]="data"></followlist>
 </ion-content>
