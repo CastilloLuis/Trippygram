@@ -19,12 +19,12 @@ export class DashboardPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private http: UserProvider,
               private nativeSto: NativeStorage, private userToken: TokenProvider) {
-                userToken.userToken()
-                .then((data) => this.loggeduser = data)
-                .catch((err) => console.log(err)) 
   }
 
   ionViewWillEnter() {
+    this.userToken.userToken()
+    .then((data) => this.loggeduser = data)
+    .catch((err) => console.log(err))     
     this.loaded = false;
     this.dashboardPosts = [];
     this.showDashboard();
@@ -41,7 +41,7 @@ export class DashboardPage {
           if(res.status === 200) {
             res.data.map(p => this.dashboardPosts.push(p));
             console.log(this.dashboardPosts);
-            (this.dashboardPosts.sort((d1, d2) => new Date(d1.created_at).getTime() - new Date(d2.created_at).getTime())).reverse();
+            //(this.dashboardPosts.sort((d1, d2) => new Date(d1.created_at).getTime() - new Date(d2.created_at).getTime())).reverse();
             this.loaded = true;
             // alert(JSON.stringify(this.dashboardPosts))
             console.log(this.dashboardPosts)

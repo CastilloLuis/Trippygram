@@ -16,8 +16,16 @@
 
   <img src="{{local}}{{postData.post_filename}}" alt="" style="width: 100%">
 
-  <ion-card-content> 
+  <ion-card-content>
     <p>{{postData.post_caption}}</p>
+    <p *ngFor="let ut of postData.userstagged" style="color: rgb(57, 149, 255)">
+      @{{ut}}
+    </p>
+    <hr/>
+    <p *ngFor="let ht of postData.ht" style="font-weight: bold; font-stretch: italic">
+      #{{ht}}
+    </p>
+    <hr/>
     <p align="right" style="color: gray;">{{date}}</p>
   </ion-card-content>
   <hr/>
@@ -29,14 +37,14 @@
       </button>
     </ion-col>
     <ion-col col-5>
-      <button ion-button clear small  (click)="showList(postData.post_id, true)">
-        12 likes
+      <button ion-button clear small (click)="showList(postData.post_id, true)">
+        {{postData.likes}} likes
       </button>
     </ion-col>
     <ion-col col-6>
       <button ion-button icon-start clear small right (click)="showList(postData.post_id, false)">
         <ion-icon name="text"></ion-icon>
-        <div>4 Comments</div>
+        <div>{{postData.comments}} Comments</div>
       </button>
     </ion-col>
   </ion-row>
@@ -49,6 +57,7 @@
 
   <hr/>
 
-  <comments [userdata]="comment_info"></comments> <!--loggedUser['userid']-->
-  
+  <comments [userdata]="comment_info"></comments>
+  <!--loggedUser['userid']-->
+
 </ion-card>

@@ -25,11 +25,20 @@ export class PostcardComponent {
   profilePage = ProfilePage;
   commentpreview = {};
   location: string = '';
+  taggedUsers;
+  hashTags;
 
   constructor(private http: PostProvider, private ref: ElementRef, private launchNavigator: LaunchNavigator, 
               private modalCtrl: ModalController, private nativeSto: NativeStorage) {
     console.log('Hello PostcardComponent Component');
     this.local = `${ENV.BASE_URL}/`;
+    if((!this.postData['userstagged'])||!(this.postData['ht'])) {
+      console.log('nop');
+    } else {
+      console.warn(Object.keys(this.postData['userstagged']));
+      console.warn(Object.keys(this.postData['ht']));
+    }
+
   }
 
   ngAfterViewInit() {
