@@ -55,7 +55,7 @@ export class CameraProvider {
     }
     fileTransfer.upload(this.image, `${this.local}/api/api/uploadFile.php`, options)
      .then((data) => { 
-       alert(JSON.stringify(data))
+       // alert(JSON.stringify(data))
        let path = (JSON.parse(data.response)).path;
        this.path = path;
        form.path = this.path;

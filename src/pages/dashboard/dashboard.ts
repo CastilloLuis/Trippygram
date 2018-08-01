@@ -36,7 +36,7 @@ export class DashboardPage {
   }
   
   showDashboard() {
-    this.http.userDashboard(`home.php?id=${1}`) // this.loggeduser['userid']
+    this.http.userDashboard(`home.php?id=${this.loggeduser['userid']}`) // this.loggeduser['userid']
       .subscribe(
         (res) =>  {
           if(res.status === 200) {

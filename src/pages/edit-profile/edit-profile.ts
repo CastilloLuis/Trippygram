@@ -64,12 +64,13 @@ export class EditProfilePage {
           loader.dismiss();
           console.log('Error-> '+(alert(JSON.stringify(res))))
         },
-        (err) => console.log(alert(JSON.stringify(err))));
+        (err) => alert(JSON.stringify(err)));
         //alert((this.updateForm.value))
     } else {
       this.updateForm.value['haveAvatar'] = true;
       //this.upload(this.avatarImage);
       this.mediaHandler.upload(this.updateForm.value, false, 'updateUser.php');
+      loader.dismiss();
       //alert((this.updateForm.value))
     }
   }
