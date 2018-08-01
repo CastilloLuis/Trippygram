@@ -57,6 +57,17 @@ export class DashboardPage {
       );
   }
 
+  doRefresh(refresher) {
+    console.log('Begin async operation', refresher);
+    this.dashboard_arr = [];
+    this.dashboardPosts = [];
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      refresher.complete();
+      this.showDashboard();
+    }, 2000);
+  }
+
   doInfinite(event) {
     setTimeout( ()=> {
       for (let i = 0; i < 2; i++) {
@@ -65,6 +76,7 @@ export class DashboardPage {
       event.complete();
     }, 2000);    
   }
+
 
 
   spinnerStyle() {

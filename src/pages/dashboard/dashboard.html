@@ -13,6 +13,14 @@
   >
     <ion-spinner name="crescent"></ion-spinner>
   </div>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>  
   <postcard *ngFor="let p of dashboard_arr" [postData]="p" [loggedUser]=loggeduser></postcard>
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
