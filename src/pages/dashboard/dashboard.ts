@@ -35,12 +35,15 @@ export class DashboardPage {
   }
   
   showDashboard() {
-    this.http.userDashboard(`home.php?id=${this.loggeduser['userid']}`) // this.loggeduser['userid']
+    this.http.userDashboard(`home.php?id=${1}`) // this.loggeduser['userid']
       .subscribe(
         (res) =>  {
           if(res.status === 200) {
             res.data.map(p => this.dashboardPosts.push(p));
             console.log(this.dashboardPosts);
+            for(let i = 0; i < 5; i++) {
+              this.dashboard_arr.push(this.dashboardPosts[this.dashboard_arr.length]);
+            }
             //(this.dashboardPosts.sort((d1, d2) => new Date(d1.created_at).getTime() - new Date(d2.created_at).getTime())).reverse();
             this.loaded = true;
             // alert(JSON.stringify(this.dashboardPosts))
@@ -51,6 +54,16 @@ export class DashboardPage {
         }
       );
   }
+
+  doInfinite(e) {
+    setTimeout( ()=> {
+      for (let i = 0; i < 10; i++) {
+        this.dashboard_arr.push(this.dashboardPosts[this.dashboard_arr.length]);
+      }    
+      e.complete();
+    }, 2000);    
+  }
+
 
   spinnerStyle() {
     let style = {
