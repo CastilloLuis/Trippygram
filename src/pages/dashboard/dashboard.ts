@@ -57,7 +57,7 @@ export class DashboardPage {
 
   doInfinite(e) {
     setTimeout( ()=> {
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 5; i++) {
         this.dashboard_arr.push(this.dashboardPosts[this.dashboard_arr.length]);
       }    
       e.complete();

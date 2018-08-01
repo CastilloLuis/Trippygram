@@ -6,7 +6,7 @@
   <ion-item-sliding #item *ngFor="let c of comments">
     <ion-item>
       <ion-avatar item-start>
-        <img src="https://ionicframework.com/dist/preview-app/www/assets/img/avatar-ts-woody.png">
+        <img [src]="c.avatar">
       </ion-avatar>
       <h2>
         @{{c.username}}

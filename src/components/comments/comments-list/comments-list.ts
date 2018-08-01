@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { PostProvider } from '../../../providers/http/post/post';
 import { distanceInWords } from 'date-fns';
 import { ToastController } from 'ionic-angular';
+import { environment as ENV } from '../../../environments/enviroment';
 
 @Component({
   selector: 'comments-list',
@@ -14,9 +15,12 @@ export class CommentsListComponent {
   comments: Array<any> = [];
   url: string = '';
   isEmpty: boolean = false;
-  
+  local: string = '';
+  avatar: string = '';
+
   constructor(private http: PostProvider, private toastCtrl: ToastController) {
     console.log('Hello CommentsListComponent Component');
+    this.local = `${ENV.BASE_URL}`;
   }
 
   ngAfterViewInit() {
@@ -24,16 +28,22 @@ export class CommentsListComponent {
     this.getComments();
   }
 
+  ngOnChanges() {
+    //this.avatar = `${this.local}${(((this.postData['avatar']).split('trippygram/'))[1])}`;
+  }
+
   getComments() {
     this.http.getComments(`getComments.php?id=${this.data['postid']}&limit=${this.data['limit']}`)
       .subscribe((res) => {
         console.log(res.data)
         if(res.status === 200 && res.data.length != 0) {
-          res.data.map((c) => c.created_at = this.newDate(
-            (((c['created_at']).split(' ')[0]).split('-')),
-            (((c['created_at']).split(' ')[1]).split(':'))
-          )); 
-          console.log()
+          res.data.map((c) => {
+            c.created_at = this.newDate(
+              (((c['created_at']).split(' ')[0]).split('-')),
+              (((c['created_at']).split(' ')[1]).split(':'))
+            );
+            c.avatar = `${this.local}${(((c['avatar']).split('trippygram/'))[1])}`;
+          });
           console.log('HEREEEEEEEE'+JSON.stringify(this.data));
           // alert(this.data['postUserId']);
           // alert(this.data['loggeduser'])
@@ -41,7 +51,8 @@ export class CommentsListComponent {
           //alert("asdadasd"+this.data['loggeduser']+1);
           //res.data.map(c => parseInt(c.id_user) === parseInt("1") ? c.own = true : c.own = false);
           console.warn(res.data)
-          this.comments = res.data;          
+          this.comments = res.data;       
+          console.log(this.comments)
         } else {
           this.isEmpty = true;
         }
