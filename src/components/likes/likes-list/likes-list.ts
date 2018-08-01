@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { PostProvider } from '../../../providers/http/post/post';
-import { distanceInWords } from 'date-fns';
 import { ModalController } from 'ionic-angular';
 import { ProfilePage } from '../../../pages/profile/profile';
+import { environment as ENV } from '../../../environments/enviroment';
 
 @Component({
   selector: 'likes-list',
@@ -14,9 +14,11 @@ export class LikesListComponent {
   likes: Array<any> = [];
   profilePage = ProfilePage;
   isEmpty: boolean = false;
-  
+  local: string = '';
+
   constructor(private http: PostProvider, private modalCtrl: ModalController) {
     console.log('Hello CommentsListComponent Component');
+    this.local = `${ENV.BASE_URL}`;
   }
 
   ngAfterViewInit() {
@@ -28,7 +30,12 @@ export class LikesListComponent {
     this.http.getLikes(`getLikes.php?id=${this.data['postid']}`)
       .subscribe((res) => {
         console.log(res);
-        ((res.status === 200 && res.data.length != 0) ? this.likes = res.data : this.isEmpty = true);
+        if ((res.status === 200) && (res.data.length != 0)) {
+          res.data.map(u => u.avatar = `${this.local}${(((u['avatar']).split('trippygram/'))[1])}`);
+          this.likes = res.data;
+        } else {
+          this.isEmpty = true
+        }
       });
   }
 

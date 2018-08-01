@@ -32,6 +32,7 @@ export class DashboardPage {
 
   ionViewWillLeave() {
     this.dashboardPosts = [];
+    this.dashboard_arr = [];
   }
   
   showDashboard() {
@@ -39,9 +40,10 @@ export class DashboardPage {
       .subscribe(
         (res) =>  {
           if(res.status === 200) {
-            res.data.map(p => this.dashboardPosts.push(p));
+            //res.data.map(p => this.dashboardPosts.push(p));
+            this.dashboardPosts = res.data;
             console.log(this.dashboardPosts);
-            for(let i = 0; i < 5; i++) {
+            for(let i = 0; i < 2; i++) {
               this.dashboard_arr.push(this.dashboardPosts[this.dashboard_arr.length]);
             }
             //(this.dashboardPosts.sort((d1, d2) => new Date(d1.created_at).getTime() - new Date(d2.created_at).getTime())).reverse();
@@ -55,12 +57,12 @@ export class DashboardPage {
       );
   }
 
-  doInfinite(e) {
+  doInfinite(event) {
     setTimeout( ()=> {
-      for (let i = 0; i < 5; i++) {
+      for (let i = 0; i < 2; i++) {
         this.dashboard_arr.push(this.dashboardPosts[this.dashboard_arr.length]);
       }    
-      e.complete();
+      event.complete();
     }, 2000);    
   }
 
