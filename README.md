@@ -1,8 +1,7 @@
 ### Trippygram
 ____
 ABOUT THIS APP:
-> This app was developed as a university project.
-> Trippygram is a hybrid mobile application. Simulating instagram :)
+> Trippygram is a hybrid mobile application. Simulating instagram.  You can like, dislike, follow, unfollow, share pictures, upload pictures, delete pictures, comment pictures and so on.
 
 ### Programming languages
 ____
